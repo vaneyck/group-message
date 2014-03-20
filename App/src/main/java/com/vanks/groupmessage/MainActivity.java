@@ -83,9 +83,7 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
 
         String[] selectionArgs = null;
         String sortOrder = ContactsContract.Groups.TITLE + " ASC";
-        Loader<Cursor> loader = null;
-
-        loader = new CursorLoader(getApplicationContext(), uri, projection, selection, selectionArgs, sortOrder);
+        Loader<Cursor> loader = new CursorLoader(getApplicationContext(), uri, projection, selection, selectionArgs, sortOrder);
         return loader;
     }
 
