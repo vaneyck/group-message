@@ -1,38 +1,56 @@
 buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:0.9.+'
-    }
+	repositories {
+		mavenLocal()
+		mavenCentral()
+		maven {
+			url 'https://oss.sonatype.org/content/repositories/snapshots'
+		}
+	}
+	dependencies {
+		classpath 'com.android.tools.build:gradle:0.8.+'
+		classpath 'com.novoda.gradle:robolectric-plugin:0.0.1-SNAPSHOT'
+	}
 }
 apply plugin: 'android'
+apply plugin: 'robolectric'
 
 repositories {
-    mavenCentral()
+	mavenLocal()
+	mavenCentral()
+	maven {
+		url 'https://oss.sonatype.org/content/repositories/snapshots'
+	}
 }
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion "19.0.0"
+	compileSdkVersion 19
+	buildToolsVersion "19.0.0"
 
-    defaultConfig {
-        minSdkVersion 7
-        targetSdkVersion 19
-    }
-    buildTypes {
-        release {
-            runProguard false
-            proguardFile getDefaultProguardFile('proguard-android.txt')
-        }
-    }
-    productFlavors {
-        defaultFlavor {
-            proguardFile 'proguard-rules.txt'
-        }
-    }
+	defaultConfig {
+		minSdkVersion 7
+		targetSdkVersion 19
+	}
+	buildTypes {
+		release {
+			runProguard false
+			proguardFile getDefaultProguardFile('proguard-android.txt')
+		}
+	}
+	productFlavors {
+		defaultFlavor {
+			proguardFile 'proguard-rules.txt'
+		}
+	}
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:+'
+	compile 'com.android.support:appcompat-v7:+'
+	instrumentTestCompile 'org.robolectric:robolectric:2.+'
+	instrumentTestCompile 'junit:junit:4.+'
 }
+
+tasks.withType(Test) {
+	scanForTestClasses = false
+	include "**/*Test.class" // whatever Ant pattern matches your test class files
+}
+
