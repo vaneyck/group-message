@@ -7,7 +7,7 @@ buildscript {
 		}
 	}
 	dependencies {
-		classpath 'com.android.tools.build:gradle:0.8.+'
+		classpath 'com.android.tools.build:gradle:0.9.+'
 		classpath 'com.novoda.gradle:robolectric-plugin:0.0.1-SNAPSHOT'
 	}
 }
@@ -45,8 +45,8 @@ android {
 
 dependencies {
 	compile 'com.android.support:appcompat-v7:+'
-	instrumentTestCompile 'org.robolectric:robolectric:2.+'
-	instrumentTestCompile 'junit:junit:4.+'
+	androidTestCompile 'org.robolectric:robolectric:2.+'
+	androidTestCompile 'junit:junit:4.+'
 }
 
 tasks.withType(Test) {
