@@ -12,6 +12,7 @@ public class Dispatch extends SugarRecord<Dispatch> {
 	MessageStatus status;
 	Message message;
 	Long dateSent;
+	boolean attempted = false;
 
 	public Long getDateSent() {
 		return dateSent;
@@ -60,5 +61,13 @@ public class Dispatch extends SugarRecord<Dispatch> {
 		this.status = MessageStatus.PENDING;
 		this.message = message;
 		this.name = name;
+	}
+
+	public boolean isAttempted() {
+		return attempted;
+	}
+
+	public void setAttempted(boolean attempted) {
+		this.attempted = attempted;
 	}
 }

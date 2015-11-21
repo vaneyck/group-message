@@ -9,7 +9,9 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.vanks.groupmessage.R;
+import com.vanks.groupmessage.models.persisted.Dispatch;
 import com.vanks.groupmessage.models.persisted.Message;
+import com.vanks.groupmessage.utils.DispatchUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,9 +46,11 @@ public class MessageListItemArrayAdapter extends ArrayAdapter<Message> {
 			messageRowHolder = (MessageRowHolder) row.getTag();
 		}
 		Message message = messageArrayList.get(position);
+		List<Dispatch> dispatches = message.getDispatches();
 		messageRowHolder.groupNameTextView.setText(message.getGroupName());
 		messageRowHolder.messageSummaryTextView.setText(message.getText());
 		messageRowHolder.messageIdTextView.setText(message.getId().toString());
+		messageRowHolder.sentMessagesProportionTextView.setText(DispatchUtil.sentCount(dispatches) + "/" + dispatches.size());
 		return row;
 	}
 
