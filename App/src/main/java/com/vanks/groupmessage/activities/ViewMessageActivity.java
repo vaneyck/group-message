@@ -39,7 +39,7 @@ public class ViewMessageActivity extends AppCompatActivity {
 		groupNameTextView = (TextView) findViewById(R.id.currentGroupNameTextView);
 		messageTextView = (TextView) findViewById(R.id.currentMessageTextView);
 		dispatchListView = (ListView) findViewById(R.id.dispatchListView);
-		groupNameTextView.setText(message.getGroupName());
+		groupNameTextView.setText("To : " + message.getGroupName());
 		messageTextView.setText(message.getText());
 
 		for (Dispatch dispatch : message.getDispatches()) {
