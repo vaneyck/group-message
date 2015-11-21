@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/home/vaneyck/workspace/GroupMessage/App/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="8413c27b45b7fe61dca4a98159f65e2cee215f5a">
+        <dex dex="/home/vaneyck/workspace/GroupMessage/App/build/intermediates/pre-dexed/defaultFlavor/debug/classes-c2586a957fc145ac1e6567e84f8823145c0d0f40.jar" />
+    </item>
+    <item
+        jar="/home/vaneyck/workspace/GroupMessage/App/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.0/jars/libs/internal_impl-23.0.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="8bd336eeae661e8311330284897ee07f8ebaa297">
+        <dex dex="/home/vaneyck/workspace/GroupMessage/App/build/intermediates/pre-dexed/defaultFlavor/debug/internal_impl-23.0.0-995be92d01c31e83f165654bb80b8fc3a577e782.jar" />
+    </item>
+    <item
+        jar="/home/vaneyck/Programming/android-sdk/extras/android/m2repository/com/android/support/support-annotations/23.0.0/support-annotations-23.0.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="990e7f98a7bad86a40b1f0bcfeb039023afd0839">
+        <dex dex="/home/vaneyck/workspace/GroupMessage/App/build/intermediates/pre-dexed/defaultFlavor/debug/support-annotations-23.0.0-54f862889630eb52aa2474df3d6d158a56f66bca.jar" />
+    </item>
+    <item
+        jar="/home/vaneyck/workspace/GroupMessage/App/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="4fcf0b1879f8caf497c073e1432d398e9e2988c1">
+        <dex dex="/home/vaneyck/workspace/GroupMessage/App/build/intermediates/pre-dexed/defaultFlavor/debug/classes-82504a944bda7a55c0c1ecf5dd0283e457a01a85.jar" />
+    </item>
+
+</items>
