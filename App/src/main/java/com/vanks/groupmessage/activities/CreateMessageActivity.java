@@ -22,7 +22,7 @@ import com.vanks.groupmessage.arrayadapters.create.GroupArrayAdapter;
 import com.vanks.groupmessage.models.unsaved.Contact;
 import com.vanks.groupmessage.models.unsaved.Group;
 import com.vanks.groupmessage.models.persisted.Message;
-import com.vanks.groupmessage.models.persisted.Recipient;
+import com.vanks.groupmessage.models.persisted.Dispatch;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -114,6 +114,7 @@ public class CreateMessageActivity extends AppCompatActivity implements LoaderMa
 	 */
 	private ArrayList<Contact> getContactsInGroup (Group group) {
 		ArrayList<Contact> contactArrayList = new ArrayList<>();
+		ArrayList<String> phoneNumberList = new ArrayList<>();
 		Long groupId = group.getId();
 		String[] cProjection = { ContactsContract.Contacts.DISPLAY_NAME, ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID };
 
@@ -136,8 +137,11 @@ public class CreateMessageActivity extends AppCompatActivity implements LoaderMa
 					do
 					{
 						String phoneNumber = numberCursor.getString(numberColumnIndex);
-						Log.d("CreateMessageActivity", "contact " + name + ":" + phoneNumber);
-						contactArrayList.add(new Contact(name, phoneNumber));
+						phoneNumber = phoneNumber.replace(" ", "").trim();
+						if(!phoneNumberList.contains(phoneNumber)) {
+							Log.d("CreateMessageActivity", "contact " + name + ":" + phoneNumber);
+							contactArrayList.add(new Contact(name, phoneNumber));
+						}
 					} while (numberCursor.moveToNext());
 					numberCursor.close();
 				}
@@ -157,8 +161,8 @@ public class CreateMessageActivity extends AppCompatActivity implements LoaderMa
 		Message message = new Message(messageToSend, group.getId(), group.getName());
 		message.save();
 		for (Contact contact : contactList) {
-			Recipient recipient = new Recipient(contact.getPhoneNumber(), message);
-			recipient.save();
+			Dispatch dispatch = new Dispatch(contact.getPhoneNumber(), contact.getName(), message);
+			dispatch.save();
 		}
 		Toast.makeText(getApplicationContext(), "Message queued for sending", Toast.LENGTH_LONG).show();
 		startActivity(new Intent(getApplicationContext(), MainActivity.class));

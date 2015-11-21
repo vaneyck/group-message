@@ -1,0 +1,64 @@
+package com.vanks.groupmessage.models.persisted;
+
+import com.orm.SugarRecord;
+import com.vanks.groupmessage.enums.MessageStatus;
+
+/**
+ * Created by vaneyck on 11/21/15.
+ */
+public class Dispatch extends SugarRecord<Dispatch> {
+	String phoneNumber;
+	String name;
+	MessageStatus status;
+	Message message;
+	Long dateSent;
+
+	public Long getDateSent() {
+		return dateSent;
+	}
+
+	public void setDateSent(Long dateSent) {
+		this.dateSent = dateSent;
+	}
+
+	public Message getMessage() {
+		return message;
+	}
+
+	public void setMessage(Message message) {
+		this.message = message;
+	}
+
+	public MessageStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(MessageStatus status) {
+		this.status = status;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public Dispatch() {}
+
+	public Dispatch(String phoneNumber, String name, Message message) {
+		this.phoneNumber = phoneNumber;
+		this.status = MessageStatus.PENDING;
+		this.message = message;
+		this.name = name;
+	}
+}
