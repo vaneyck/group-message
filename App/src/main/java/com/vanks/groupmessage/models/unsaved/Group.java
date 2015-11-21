@@ -1,4 +1,4 @@
-package com.vanks.groupmessage.models;
+package com.vanks.groupmessage.models.unsaved;
 
 /**
  * Created by vaneyck on 11/21/15.

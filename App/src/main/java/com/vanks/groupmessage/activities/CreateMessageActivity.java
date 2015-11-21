@@ -1,5 +1,6 @@
 package com.vanks.groupmessage.activities;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -14,12 +15,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.vanks.groupmessage.R;
 import com.vanks.groupmessage.arrayadapters.create.GroupArrayAdapter;
-import com.vanks.groupmessage.models.Contact;
-import com.vanks.groupmessage.models.Group;
+import com.vanks.groupmessage.models.unsaved.Contact;
+import com.vanks.groupmessage.models.unsaved.Group;
+import com.vanks.groupmessage.models.persisted.Message;
+import com.vanks.groupmessage.models.persisted.Recipient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -146,11 +149,18 @@ public class CreateMessageActivity extends AppCompatActivity implements LoaderMa
 
 	/**
 	 * Store the message into database for sending later on
-	 * @param message
+	 * @param messageToSend
 	 * @param group
 	 * @param contactList
 	 */
-	private void queueGroupMessageForSending (String message,Group group, List<Contact> contactList) {
-		//TODO
+	private void queueGroupMessageForSending (String messageToSend,Group group, List<Contact> contactList) {
+		Message message = new Message(messageToSend, group.getId(), group.getName());
+		message.save();
+		for (Contact contact : contactList) {
+			Recipient recipient = new Recipient(contact.getPhoneNumber(), message);
+			recipient.save();
+		}
+		Toast.makeText(getApplicationContext(), "Message queued for sending", Toast.LENGTH_LONG).show();
+		startActivity(new Intent(getApplicationContext(), MainActivity.class));
 	}
 }

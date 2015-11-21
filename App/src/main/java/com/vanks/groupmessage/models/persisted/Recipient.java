@@ -1,4 +1,4 @@
-package com.vanks.groupmessage.models;
+package com.vanks.groupmessage.models.persisted;
 
 import com.orm.SugarRecord;
 import com.vanks.groupmessage.enums.MessageStatus;

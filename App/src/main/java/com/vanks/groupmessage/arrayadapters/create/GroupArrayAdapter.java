@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.vanks.groupmessage.R;
-import com.vanks.groupmessage.models.Group;
+import com.vanks.groupmessage.models.unsaved.Group;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.vanks.groupmessage.models;
+package com.vanks.groupmessage.models.persisted;
 
 import com.orm.SugarRecord;
 
@@ -10,12 +10,14 @@ import java.util.List;
 public class Message extends SugarRecord<Message> {
 	String text;
 	Long groupId;
+	String groupName;
 
 	public Message () {}
 
-	public Message (String text, Long groupId) {
+	public Message (String text, Long groupId, String groupName) {
 		this.text = text;
 		this.groupId = groupId;
+		this.groupName = groupName;
 	}
 
 	/**
@@ -33,12 +35,27 @@ public class Message extends SugarRecord<Message> {
 	 */
 	public void addRecipient (String phoneNumber) {
 		Recipient recipient =  new Recipient();
+	}
 
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public Long getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(Long groupId) {
+		this.groupId = groupId;
+	}
+
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
 	}
 
 	public String getGroupName () {
-		//TODO return group name
-		return "Group " + groupId;
+		return groupName;
+
 	}
 
 	public String getText () {

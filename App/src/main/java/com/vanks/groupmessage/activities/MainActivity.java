@@ -11,7 +11,7 @@ import android.widget.ListView;
 
 import com.vanks.groupmessage.R;
 import com.vanks.groupmessage.arrayadapters.main.MessageListItemArrayAdapter;
-import com.vanks.groupmessage.models.Message;
+import com.vanks.groupmessage.models.persisted.Message;
 
 import java.util.ArrayList;
 
@@ -57,11 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void initialiseUi () {
-        messageArrayList = new ArrayList<Message>();
-        for(int x=0; x< 20;x++) {
-            Message testMessage = new Message("Lorem ipsum dolor sit amet, his sint aperiam id, has agam justo offendit ea. Ancillae perpetua repudiandae ut vis " + x, x + 0L);
-            messageArrayList.add(testMessage);
-        }
+        messageArrayList = (ArrayList<Message>) Message.listAll(Message.class);
         messageListView =  (ListView) findViewById(R.id.messageListView);
         messageListItemArrayAdapter = new MessageListItemArrayAdapter(this, R.layout.landing_page_message_list_item, messageArrayList);
         messageListView.setAdapter(messageListItemArrayAdapter);
