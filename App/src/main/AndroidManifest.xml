@@ -43,6 +43,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.ViewMessageActivity"></activity>
+        <activity android:name=".activities.CreateMessageActivity"
+			android:label="@string/activity_create_message_label"></activity>
     </application>
 
 </manifest>
