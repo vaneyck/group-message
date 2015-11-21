@@ -7,6 +7,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.vanks.groupmessage.R;
+import com.vanks.groupmessage.arrayadapters.view.DispatchArrayAdapter;
 import com.vanks.groupmessage.models.persisted.Dispatch;
 import com.vanks.groupmessage.models.persisted.Message;
 
@@ -18,6 +19,7 @@ public class ViewMessageActivity extends AppCompatActivity {
 	Message message;
 	TextView groupNameTextView, messageTextView;
 	ListView dispatchListView;
+	DispatchArrayAdapter dispatchArrayAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +43,8 @@ public class ViewMessageActivity extends AppCompatActivity {
 		dispatchListView = (ListView) findViewById(R.id.dispatchListView);
 		groupNameTextView.setText("To : " + message.getGroupName());
 		messageTextView.setText(message.getText());
-
-		for (Dispatch dispatch : message.getDispatches()) {
-			Log.d("Dispatch", dispatch.getName() + " : " + dispatch.getPhoneNumber());
-		}
+		dispatchArrayAdapter =  new DispatchArrayAdapter(this, R.layout.activity_dispatch_list_item, message.getDispatches());
+		dispatchListView.setAdapter(dispatchArrayAdapter);
+		dispatchArrayAdapter.notifyDataSetChanged();
 	}
 }
