@@ -1,19 +1,12 @@
 package com.vanks.groupmessage.activities;
 
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.Build;
+import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,7 +20,7 @@ import com.vanks.groupmessage.models.Message;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class MainActivity extends AppCompatActivity {
     ListView messageListView;
     MessageListItemArrayAdapter messageListItemArrayAdapter;
     ArrayList<Message> messageArrayList;
@@ -38,24 +31,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                startActivity(new Intent(getApplicationContext(), ViewMessageActivity.class));
             }
         });
         initialiseUi();
-
-        if (savedInstanceState == null) {
-            /*
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
-                    .commit();
-            */
-        }
     }
 
     @Override
@@ -105,39 +89,5 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             getLoaderManager().initLoader(URL_LOADER, null, (LoaderManager.LoaderCallbacks<Object>) getActivity());
             return rootView;
         }
-    }
-
-//>LoaderManager.LoaderCallbacks<Cursor> interface methods
-    @Override
-    public Loader<Cursor> onCreateLoader(int loaderId, Bundle bundle) {
-        Uri uri = ContactsContract.Groups.CONTENT_SUMMARY_URI;
-        String[] projection = null;
-        String selection = ContactsContract.Groups.ACCOUNT_TYPE + " NOT NULL AND " +
-            ContactsContract.Groups.ACCOUNT_NAME + " NOT NULL AND " + ContactsContract.Groups.DELETED + "=0";
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            selection += " AND " + ContactsContract.Groups.AUTO_ADD + "=0 AND " + ContactsContract.Groups.FAVORITES + "=0";
-        }
-
-        String[] selectionArgs = null;
-        String sortOrder = ContactsContract.Groups.TITLE + " ASC";
-        Loader<Cursor> loader = new CursorLoader(getApplicationContext(), uri, projection, selection, selectionArgs, sortOrder);
-        return loader;
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-        if(cursor == null || cursor.getCount() == 0) { return; }
-        cursor.moveToFirst();
-        do {
-            String groupName = cursor.getString(cursor.getColumnIndex(ContactsContract.Groups.TITLE));
-            Long groupId = cursor.getLong(cursor.getColumnIndex(ContactsContract.Groups._ID));
-            Log.i("MainActivity", groupId + " : " + groupName);
-        } while(cursor.moveToNext());
-        cursor.close();
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> cursorLoader) {
-
     }
 }
