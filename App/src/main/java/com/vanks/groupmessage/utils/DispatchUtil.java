@@ -50,6 +50,8 @@ public class DispatchUtil {
 	public static void updateDispatch (Long dispatchId, DispatchStatus status) {
 		Dispatch dispatch = Dispatch.findById(Dispatch.class, dispatchId);
 		dispatch.setStatus(status);
+		dispatch.setAttempted(true);
+		dispatch.setDateAttempted(new Date().getTime());
 		dispatch.save();
 	}
 }

@@ -11,15 +11,15 @@ public class Dispatch extends SugarRecord<Dispatch> {
 	String name;
 	DispatchStatus status;
 	Message message;
-	Long dateSent;
+	Long dateAttempted;
 	boolean attempted = false;
 
-	public Long getDateSent() {
-		return dateSent;
+	public Long getDateAttempted() {
+		return dateAttempted;
 	}
 
-	public void setDateSent(Long dateSent) {
-		this.dateSent = dateSent;
+	public void setDateAttempted(Long dateAttempted) {
+		this.dateAttempted = dateAttempted;
 	}
 
 	public Message getMessage() {
