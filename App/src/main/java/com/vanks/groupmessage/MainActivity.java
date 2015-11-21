@@ -9,7 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -17,7 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class MainActivity extends ActionBarActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final int URL_LOADER = 0;
 
@@ -93,7 +93,8 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
         cursor.moveToFirst();
         do {
             String groupName = cursor.getString(cursor.getColumnIndex(ContactsContract.Groups.TITLE));
-            Log.i("MainActivity", groupName);
+            Long groupId = cursor.getLong(cursor.getColumnIndex(ContactsContract.Groups._ID));
+            Log.i("MainActivity", groupId + " : " + groupName);
         } while(cursor.moveToNext());
         cursor.close();
     }
