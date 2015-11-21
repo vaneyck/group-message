@@ -1,4 +1,4 @@
-package com.vanks.groupmessage;
+package com.vanks.groupmessage.activities;
 
 import android.database.Cursor;
 import android.net.Uri;
@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.vanks.groupmessage.R;
 import com.vanks.groupmessage.arrayadapters.main.MessageListItemArrayAdapter;
 import com.vanks.groupmessage.models.Message;
 
