@@ -16,8 +16,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+
+import com.vanks.groupmessage.arrayadapters.main.MessageListItemArrayAdapter;
+import com.vanks.groupmessage.models.Message;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+    ListView messageListView;
+    MessageListItemArrayAdapter messageListItemArrayAdapter;
+    ArrayList<Message> messageArrayList;
 
     private static final int URL_LOADER = 0;
 
@@ -25,14 +34,16 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initialiseUi();
 
         if (savedInstanceState == null) {
+            /*
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
+            */
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -52,6 +63,17 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    private void initialiseUi () {
+        Message testMessage = new Message("A sample message", 4l);
+        messageArrayList = new ArrayList<Message>();
+        messageArrayList.add(testMessage);
+        messageListView =  (ListView) findViewById(R.id.messageListView);
+        messageListItemArrayAdapter = new MessageListItemArrayAdapter(this, R.layout.landing_page_message_list_item, messageArrayList);
+        messageListView.setAdapter(messageListItemArrayAdapter);
+        messageListItemArrayAdapter.notifyDataSetChanged();
     }
 
     /**
