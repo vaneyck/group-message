@@ -1,7 +1,7 @@
 package com.vanks.groupmessage.models.persisted;
 
 import com.orm.SugarRecord;
-import com.vanks.groupmessage.enums.MessageStatus;
+import com.vanks.groupmessage.enums.DispatchStatus;
 
 /**
  * Created by vaneyck on 11/21/15.
@@ -9,7 +9,7 @@ import com.vanks.groupmessage.enums.MessageStatus;
 public class Dispatch extends SugarRecord<Dispatch> {
 	String phoneNumber;
 	String name;
-	MessageStatus status;
+	DispatchStatus status;
 	Message message;
 	Long dateSent;
 	boolean attempted = false;
@@ -30,11 +30,11 @@ public class Dispatch extends SugarRecord<Dispatch> {
 		this.message = message;
 	}
 
-	public MessageStatus getStatus() {
+	public DispatchStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(MessageStatus status) {
+	public void setStatus(DispatchStatus status) {
 		this.status = status;
 	}
 
@@ -58,7 +58,7 @@ public class Dispatch extends SugarRecord<Dispatch> {
 
 	public Dispatch(String phoneNumber, String name, Message message) {
 		this.phoneNumber = phoneNumber;
-		this.status = MessageStatus.PENDING;
+		this.status = DispatchStatus.PENDING;
 		this.message = message;
 		this.name = name;
 	}

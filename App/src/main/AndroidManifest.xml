@@ -42,9 +42,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.ViewMessageActivity"></activity>
-        <activity android:name=".activities.CreateMessageActivity"
-			android:label="@string/activity_create_message_label"></activity>
+        <activity android:name=".activities.ViewMessageActivity" />
+        <activity
+            android:name=".activities.CreateMessageActivity"
+            android:label="@string/activity_create_message_label" />
+
+        <service
+            android:name=".services.MessageSendService"
+            android:exported="false" >
+        </service>
     </application>
 
 </manifest>
