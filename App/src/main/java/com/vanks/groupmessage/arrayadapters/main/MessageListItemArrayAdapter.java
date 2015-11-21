@@ -46,6 +46,7 @@ public class MessageListItemArrayAdapter extends ArrayAdapter<Message> {
 		Message message = messageArrayList.get(position);
 		messageRowHolder.groupNameTextView.setText(message.getGroupName());
 		messageRowHolder.messageSummaryTextView.setText(message.getText());
+		messageRowHolder.messageIdTextView.setText(message.getId().toString());
 		return row;
 	}
 

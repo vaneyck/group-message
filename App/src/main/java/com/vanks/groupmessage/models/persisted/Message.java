@@ -23,21 +23,9 @@ public class Message extends SugarRecord<Message> {
 		this.dateCreated = new Date().getTime();
 	}
 
-	/**
-	 * Retrieve a list of Recipients assigned to a Message object
-	 * @return a List of Recipients
-	 */
-	public List<Dispatch> getRecipients (){
+	public List<Dispatch> getDispatches (){
 		String messageIdAsString = this.getId().toString();
 		return Dispatch.find(Dispatch.class, "message = ?", messageIdAsString);
-	}
-
-	/**
-	 * Store Recipient against a Message
-	 * @param phoneNumber the Recipients phone number
-	 */
-	public void addRecipient (String phoneNumber) {
-		Dispatch dispatch =  new Dispatch();
 	}
 
 	public void setText(String text) {

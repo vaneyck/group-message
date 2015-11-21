@@ -7,7 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.vanks.groupmessage.R;
 import com.vanks.groupmessage.arrayadapters.main.MessageListItemArrayAdapter;
@@ -55,6 +57,16 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    AdapterView.OnItemClickListener messageItemListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            String messageIdAsString = ((TextView) view.findViewById(R.id.messageIdTextView)).getText().toString();
+            Long messageId = Long.parseLong(messageIdAsString);
+            Intent intent = new Intent(getApplicationContext(), ViewMessageActivity.class);
+            intent.putExtra("messageId", messageId);
+            startActivity(intent);
+        }
+    };
 
     private void initialiseUi () {
         messageArrayList = (ArrayList<Message>) Message.listAll(Message.class);
@@ -62,5 +74,6 @@ public class MainActivity extends AppCompatActivity {
         messageListItemArrayAdapter = new MessageListItemArrayAdapter(this, R.layout.landing_page_message_list_item, messageArrayList);
         messageListView.setAdapter(messageListItemArrayAdapter);
         messageListItemArrayAdapter.notifyDataSetChanged();
+        messageListView.setOnItemClickListener(messageItemListener);
     }
 }
