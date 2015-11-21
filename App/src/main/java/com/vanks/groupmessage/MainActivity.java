@@ -67,9 +67,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
 
     private void initialiseUi () {
-        Message testMessage = new Message("A sample message", 4l);
         messageArrayList = new ArrayList<Message>();
-        messageArrayList.add(testMessage);
+        for(int x=0; x< 20;x++) {
+            Message testMessage = new Message("Lorem ipsum dolor sit amet, his sint aperiam id, has agam justo offendit ea. Ancillae perpetua repudiandae ut vis " + x, x + 0L);
+            messageArrayList.add(testMessage);
+        }
         messageListView =  (ListView) findViewById(R.id.messageListView);
         messageListItemArrayAdapter = new MessageListItemArrayAdapter(this, R.layout.landing_page_message_list_item, messageArrayList);
         messageListView.setAdapter(messageListItemArrayAdapter);

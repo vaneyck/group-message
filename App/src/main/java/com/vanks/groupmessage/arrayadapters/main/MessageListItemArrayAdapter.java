@@ -37,6 +37,8 @@ public class MessageListItemArrayAdapter extends ArrayAdapter<Message> {
 			messageRowHolder = new MessageRowHolder();
 			messageRowHolder.groupNameTextView = (TextView) row.findViewById(R.id.groupNameTextView);
 			messageRowHolder.messageSummaryTextView = (TextView) row.findViewById(R.id.messageSummaryTextView);
+			messageRowHolder.messageIdTextView = (TextView) row.findViewById(R.id.messageIdTextView);
+			messageRowHolder.sentMessagesProportionTextView = (TextView) row.findViewById(R.id.sentMessagesProportionTextView);
 			row.setTag(messageRowHolder);
 		} else {
 			messageRowHolder = (MessageRowHolder) row.getTag();
@@ -48,6 +50,6 @@ public class MessageListItemArrayAdapter extends ArrayAdapter<Message> {
 	}
 
 	static class MessageRowHolder {
-		TextView groupNameTextView, messageSummaryTextView;
+		TextView groupNameTextView, messageSummaryTextView, messageIdTextView, sentMessagesProportionTextView;
 	}
 }
