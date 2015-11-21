@@ -1,54 +1,55 @@
 buildscript {
-	repositories {
-		mavenLocal()
-		mavenCentral()
-		maven {
-			url 'https://oss.sonatype.org/content/repositories/snapshots'
-		}
-	}
-	dependencies {
-		classpath 'com.android.tools.build:gradle:1.5.0'
-	}
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven {
+            url 'https://oss.sonatype.org/content/repositories/snapshots'
+        }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.5.0'
+    }
 }
 apply plugin: 'com.android.application'
 
 repositories {
-	mavenLocal()
-	mavenCentral()
-	maven {
-		url 'https://oss.sonatype.org/content/repositories/snapshots'
-	}
+    mavenLocal()
+    mavenCentral()
+    maven {
+        url 'https://oss.sonatype.org/content/repositories/snapshots'
+    }
 }
 
 android {
-	compileSdkVersion 23
-	buildToolsVersion "23.0.2"
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
 
-	defaultConfig {
-		minSdkVersion 14
-		targetSdkVersion 23
-	}
-	buildTypes {
-		release {
-			minifyEnabled false
-			proguardFile getDefaultProguardFile('proguard-android.txt')
-		}
-	}
-	productFlavors {
-		defaultFlavor {
-			proguardFile 'proguard-rules.txt'
-		}
-	}
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 23
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFile getDefaultProguardFile('proguard-android.txt')
+        }
+    }
+    productFlavors {
+        defaultFlavor {
+            proguardFile 'proguard-rules.txt'
+        }
+    }
 }
 
 dependencies {
-	compile 'com.android.support:appcompat-v7:23.1.1'
-	androidTestCompile 'junit:junit:4.+'
-	compile "com.github.satyan:sugar:1.3"
+    androidTestCompile 'junit:junit:4.+'
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.github.satyan:sugar:1.3'
+    compile 'com.android.support:design:23.1.1'
 }
 
 tasks.withType(Test) {
-	scanForTestClasses = false
-	include "**/*Test.class" // whatever Ant pattern matches your test class files
+    scanForTestClasses = false
+    include "**/*Test.class" // whatever Ant pattern matches your test class files
 }
 
