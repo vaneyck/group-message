@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.orm.query.Select;
 import com.vanks.groupmessage.R;
 import com.vanks.groupmessage.arrayadapters.main.MessageListItemArrayAdapter;
 import com.vanks.groupmessage.models.persisted.Message;
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private void initialiseUi () {
-        messageArrayList = (ArrayList<Message>) Message.listAll(Message.class);
+        messageArrayList = (ArrayList<Message>) Select.from(Message.class).orderBy("id desc").list();
         messageListView =  (ListView) findViewById(R.id.messageListView);
         messageListItemArrayAdapter = new MessageListItemArrayAdapter(this, R.layout.landing_page_message_list_item, messageArrayList);
         messageListView.setAdapter(messageListItemArrayAdapter);
