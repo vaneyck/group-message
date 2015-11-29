@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.telephony.SmsManager;
 
+import com.orm.query.Condition;
+import com.orm.query.Select;
 import com.vanks.groupmessage.enums.DispatchStatus;
 import com.vanks.groupmessage.models.persisted.Dispatch;
 
@@ -45,6 +47,12 @@ public class DispatchUtil {
 			sentPendingIntentsList.add(PendingIntent.getBroadcast(context, uniqueBroadcastId, sentIntent, 0));
 		}
 		smsManager.sendMultipartTextMessage(destinationNumber, null, multipartMessageList, sentPendingIntentsList, null);
+	}
+
+	public static List<Dispatch> getDispatchesToSend() {
+		return Select.from(Dispatch.class)
+				.where(Condition.prop("status").eq(DispatchStatus.QUEUED.toString()))
+				.list();
 	}
 
 	public static void updateDispatch (Long dispatchId, DispatchStatus status) {
