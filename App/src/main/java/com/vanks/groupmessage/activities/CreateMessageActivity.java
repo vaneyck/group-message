@@ -1,5 +1,8 @@
 package com.vanks.groupmessage.activities;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -54,7 +57,7 @@ public class CreateMessageActivity extends AppCompatActivity implements LoaderMa
 		groupListSpinner = (Spinner) findViewById(R.id.groupListSpinner);
 		messageToSendEditText = (EditText) findViewById(R.id.messageToSendTextView);
 		queueMessageForSendingButton = (Button) findViewById(R.id.submitMessageForSendingButton);
-		queueMessageForSendingButton.setOnClickListener(queueMessageForSendingClickListener);
+		queueMessageForSendingButton.setOnClickListener(showConfirmSendDialog);
 		getSupportLoaderManager().initLoader(URL_LOADER, null, this);
 	}
 
@@ -64,16 +67,33 @@ public class CreateMessageActivity extends AppCompatActivity implements LoaderMa
 		groupArrayAdapter.notifyDataSetChanged();
 	}
 
-	View.OnClickListener queueMessageForSendingClickListener = new View.OnClickListener() {
-		@Override
+	View.OnClickListener showConfirmSendDialog = new View.OnClickListener() {
 		public void onClick(View v) {
-			int index = groupListSpinner.getSelectedItemPosition();
-			Group selectedGroup = groupArrayList.get(index);
-			String messageToSend = messageToSendEditText.getText().toString();
-			ArrayList<Contact> contactArrayList = getContactsInGroup(selectedGroup);
-			queueGroupMessageForSending(messageToSend, selectedGroup, contactArrayList);
+			AlertDialog.Builder builder = new AlertDialog.Builder(CreateMessageActivity.this);
+			builder.setMessage(R.string.confirm_send_message)
+					.setTitle(R.string.confirm_send_message_title);
+			builder.setPositiveButton(R.string.send_label, new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int id) {
+					queueMessage();
+				}
+			});
+			builder.setNegativeButton(R.string.dont_send, new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int id) {
+					dialog.cancel();
+				}
+			});
+			AlertDialog dialog = builder.create();
+			dialog.show();
 		}
 	};
+
+	public void queueMessage () {
+		int index = groupListSpinner.getSelectedItemPosition();
+		Group selectedGroup = groupArrayList.get(index);
+		String messageToSend = messageToSendEditText.getText().toString();
+		ArrayList<Contact> contactArrayList = getContactsInGroup(selectedGroup);
+		queueGroupMessageForSending(messageToSend, selectedGroup, contactArrayList);
+	}
 
 	//>LoaderManager.LoaderCallbacks<Cursor> interface methods
 	@Override

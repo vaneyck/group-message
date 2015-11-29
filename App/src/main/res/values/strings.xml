@@ -7,5 +7,9 @@
     <string name="activity_create_message_label">Send Group Message</string>
     <string name="select_group_label">Select group to send message to</string>
     <string name="queue_message_label">Queue Message</string>
+    <string name="confirm_send_message">Are you sure you want to send this message?</string>
+    <string name="confirm_send_message_title">Confirm sending</string>
+    <string name="send_label">Yes, Send</string>
+    <string name="dont_send">Dont Send</string>
 
 </resources>
