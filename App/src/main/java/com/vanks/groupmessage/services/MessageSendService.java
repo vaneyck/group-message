@@ -6,6 +6,7 @@ import android.content.Intent;
 import com.vanks.groupmessage.models.persisted.Dispatch;
 import com.vanks.groupmessage.utils.DispatchUtil;
 import com.vanks.groupmessage.utils.PreferenceUtil;
+import com.vanks.groupmessage.utils.ScheduleUtil;
 
 import java.util.List;
 
@@ -44,6 +45,7 @@ public class MessageSendService extends IntentService {
 	}
 
 	private void queueMessageSendService () {
-		//TODO delegate to SchedulerUtil
+		//TODO default to 60 seconds
+		ScheduleUtil.scheduleMessageSendService(getApplicationContext(), 60);
 	}
 }
