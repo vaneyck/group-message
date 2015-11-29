@@ -3,6 +3,7 @@ package com.vanks.groupmessage.services;
 import android.app.IntentService;
 import android.content.Intent;
 
+import com.vanks.groupmessage.enums.DispatchStatus;
 import com.vanks.groupmessage.models.persisted.Dispatch;
 import com.vanks.groupmessage.utils.DispatchUtil;
 import com.vanks.groupmessage.utils.PreferenceUtil;
@@ -11,8 +12,6 @@ import com.vanks.groupmessage.utils.ScheduleUtil;
 import java.util.List;
 
 public class MessageSendService extends IntentService {
-
-	static boolean isRunning = false;
 
 	public MessageSendService() {
 		super("MessageSendService");
@@ -27,7 +26,8 @@ public class MessageSendService extends IntentService {
 	}
 
 	private void retrieveAndSendDispatches () {
-		List<Dispatch> dispatchListToSend = DispatchUtil.getDispatchesToSend();
+		List<Dispatch> dispatchListToSend = DispatchUtil.getDispatchesToSend(getApplicationContext());
+		markDispatchesAsInFlight(dispatchListToSend);
 		for (Dispatch dispatch : dispatchListToSend) {
 			sendDispatch(dispatch);
 		}
@@ -45,7 +45,13 @@ public class MessageSendService extends IntentService {
 	}
 
 	private void queueMessageSendService () {
-		//TODO default to 60 seconds
-		ScheduleUtil.scheduleMessageSendService(getApplicationContext(), 60);
+		int delay  = PreferenceUtil.getBatchDispatchDelay(getApplicationContext());
+		ScheduleUtil.scheduleMessageSendService(getApplicationContext(), delay * 1000);
+	}
+
+	private void markDispatchesAsInFlight (List<Dispatch> dispatchList) {
+		for (Dispatch dispatch : dispatchList) {
+			DispatchUtil.updateDispatch(dispatch, DispatchStatus.PENDING);
+		}
 	}
 }

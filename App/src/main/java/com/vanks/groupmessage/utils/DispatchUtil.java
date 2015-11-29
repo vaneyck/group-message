@@ -49,14 +49,20 @@ public class DispatchUtil {
 		smsManager.sendMultipartTextMessage(destinationNumber, null, multipartMessageList, sentPendingIntentsList, null);
 	}
 
-	public static List<Dispatch> getDispatchesToSend() {
+	public static List<Dispatch> getDispatchesToSend(Context context) {
+		Integer dispatchPayloadSize = PreferenceUtil.getDispatchPickupSize(context);
 		return Select.from(Dispatch.class)
 				.where(Condition.prop("status").eq(DispatchStatus.QUEUED.toString()))
+				.limit(dispatchPayloadSize.toString())
 				.list();
 	}
 
 	public static void updateDispatch (Long dispatchId, DispatchStatus status) {
 		Dispatch dispatch = Dispatch.findById(Dispatch.class, dispatchId);
+		updateDispatch(dispatch, status);
+	}
+
+	public static void updateDispatch (Dispatch dispatch, DispatchStatus status) {
 		dispatch.setStatus(status);
 		dispatch.setAttempted(true);
 		dispatch.setDateAttempted(new Date().getTime());

@@ -23,6 +23,7 @@ import com.vanks.groupmessage.models.unsaved.Contact;
 import com.vanks.groupmessage.models.unsaved.Group;
 import com.vanks.groupmessage.models.persisted.Message;
 import com.vanks.groupmessage.models.persisted.Dispatch;
+import com.vanks.groupmessage.services.MessageSendService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -165,6 +166,7 @@ public class CreateMessageActivity extends AppCompatActivity implements LoaderMa
 			dispatch.save();
 		}
 		Toast.makeText(getApplicationContext(), "Message queued for sending", Toast.LENGTH_LONG).show();
+		startService(new Intent(getApplicationContext(), MessageSendService.class));
 		startActivity(new Intent(getApplicationContext(), MainActivity.class));
 	}
 }

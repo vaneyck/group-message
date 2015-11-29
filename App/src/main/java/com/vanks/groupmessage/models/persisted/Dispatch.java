@@ -58,7 +58,7 @@ public class Dispatch extends SugarRecord<Dispatch> {
 
 	public Dispatch(String phoneNumber, String name, Message message) {
 		this.phoneNumber = phoneNumber;
-		this.status = DispatchStatus.PENDING;
+		this.status = DispatchStatus.QUEUED;
 		this.message = message;
 		this.name = name;
 	}

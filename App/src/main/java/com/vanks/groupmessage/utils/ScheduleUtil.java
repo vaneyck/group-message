@@ -43,7 +43,7 @@ public class ScheduleUtil {
 
 		AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 		alarmManager.set(AlarmManager.RTC_WAKEUP, timeToRun, getMessageSendServiceIntent(context));
-		Log.i("MessageSendService", "UploadService Alarm scheduled for : " + new Date(timeToRun));
+		Log.i("MessageSendService", "MessageSendService Alarm scheduled for : " + new Date(timeToRun));
 	}
 
 	private static boolean messageSendServiceAlarmRunning(Context context) {
