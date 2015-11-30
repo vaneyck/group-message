@@ -39,7 +39,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.ViewMessageActivity" />
+        <activity
+            android:name=".activities.ViewMessageActivity"
+            android:label="@string/activity_view_message_label"/>
         <activity
             android:name=".activities.CreateMessageActivity"
             android:label="@string/activity_create_message_label" />
