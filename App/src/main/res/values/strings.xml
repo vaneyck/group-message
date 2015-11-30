@@ -11,5 +11,12 @@
     <string name="confirm_send_message_title">Confirm sending</string>
     <string name="send_label">Yes, Send</string>
     <string name="dont_send">Dont Send</string>
+    <string name="pref_sms_sending_config_title">SMS sending configuration</string>
+    <string name="pref_dispatch_delay_title">Single SMS delay</string>
+    <string name="pref_dispatch_delay_summary">Duration to wait before sending every SMS.</string>
+    <string name="pref_batch_dispatch_delay_title">Batch SMS delay</string>
+    <string name="pref_batch_dispatch_delay_summary">Duration to wait before sending every batch of SMS</string>
+    <string name="pref_dispatch_pickup_size_title">SMS Batch Size</string>
+    <string name="pref_dispatch_pickup_size_summary">SMS batch size to attempt sending after every SMS Batch Delay</string>
 
 </resources>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pref_dispatch_delay_entries_labels">
+        <item>5 sec</item>
+        <item>6 sec</item>
+        <item>7 sec</item>
+        <item>8 sec</item>
+        <item>9 sec</item>
+        <item>10 sec</item>
+    </string-array>
+    <string-array name="pref_dispatch_delay_entries_values">
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
+    <string-array name="pref_batch_dispatch_delay_entries_labels">
+        <item>30 sec</item>
+        <item>60 sec</item>
+        <item>90 sec</item>
+        <item>120 sec</item>
+        <item>150 sec</item>
+        <item>180 sec</item>
+    </string-array>
+    <string-array name="pref_batch_dispatch_delay_entries_values">
+        <item>30</item>
+        <item>60</item>
+        <item>90</item>
+        <item>120</item>
+        <item>150</item>
+        <item>180</item>
+    </string-array>
+    <string-array name="pref_dispatch_pickup_size_entries_labels">
+        <item>8 sms</item>
+        <item>10 sms</item>
+        <item>12 sms</item>
+        <item>14 sms</item>
+        <item>16 sms</item>
+        <item>18 sms</item>
+        <item>20 sms</item>
+    </string-array>
+    <string-array name="pref_dispatch_pickup_size_entries_values">
+        <item>8</item>
+        <item>10</item>
+        <item>12</item>
+        <item>14</item>
+        <item>16</item>
+        <item>18</item>
+        <item>20</item>
+    </string-array>
+</resources>
