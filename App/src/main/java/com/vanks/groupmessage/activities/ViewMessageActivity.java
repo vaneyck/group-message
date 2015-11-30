@@ -29,12 +29,12 @@ public class ViewMessageActivity extends AppCompatActivity {
 		if(messageId != -1) {
 			message = Message.findById(Message.class, messageId);
 		}
-		initialiseUi();
 	}
 
 	@Override
 	public void onResume () {
 		super.onResume();
+		initialiseUi();
 	}
 
 	private void initialiseUi () {
