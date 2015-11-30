@@ -4,6 +4,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.telephony.SmsManager;
+import android.util.Log;
 
 import com.orm.query.Condition;
 import com.orm.query.Select;
@@ -31,6 +32,12 @@ public class DispatchUtil {
 	}
 
 	public static void sendDispatch (Context context, Dispatch dispatch) {
+		if(!PreferenceUtil.isAppOn(context)) {
+			Log.i("DispatchUtil", "Marking dispatch as FAILED since app has been turned off");
+			dispatch.setStatus(DispatchStatus.FAILED);
+			dispatch.save();
+			return;
+		}
 		String text = dispatch.getMessage().getText();
 		String destinationNumber = dispatch.getPhoneNumber();
 		long dispatchId = dispatch.getId();

@@ -10,6 +10,7 @@ public class PreferenceUtil {
 	public static final String DISPATCH_DELAY = "dispatch.delay";
 	public static final String BATCH_DISPATCH_DELAY = "batch.dispatch.delay";
 	public static final String DISPATCH_PICKUP_SIZE = "dispatch.pickup.size";
+	public static final String APP_ON = "app.on";
 
 	/**
 	 * returns the duration to wait (in seconds) before sending next dispatch
@@ -30,5 +31,9 @@ public class PreferenceUtil {
 	public static int getDispatchPickupSize(Context context) {
 		String pickupSize = PreferenceManager.getDefaultSharedPreferences(context).getString(DISPATCH_PICKUP_SIZE, "10");
 		return Integer.parseInt(pickupSize);
+	}
+
+	public static boolean isAppOn (Context context) {
+		return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(APP_ON, true);
 	}
 }

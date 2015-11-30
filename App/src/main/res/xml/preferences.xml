@@ -3,6 +3,11 @@
     <PreferenceCategory
         android:title="@string/pref_sms_sending_config_title"
         android:key="pref_key_storage_settings">
+        <CheckBoxPreference
+            android:key="app.on"
+            android:title="@string/app_on_title"
+            android:summary="@string/app_on_summary"
+            android:defaultValue="true" />
         <ListPreference
             android:key="dispatch.delay"
             android:summary="@string/pref_dispatch_delay_summary"

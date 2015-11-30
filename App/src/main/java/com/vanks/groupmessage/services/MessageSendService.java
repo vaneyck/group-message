@@ -21,6 +21,7 @@ public class MessageSendService extends IntentService {
 	protected void onHandleIntent(Intent intent) {
 		if (intent != null) {
 			retrieveAndSendDispatches();
+			ScheduleUtil.scheduleMessageSendService(getApplicationContext());
 		}
 	}
 

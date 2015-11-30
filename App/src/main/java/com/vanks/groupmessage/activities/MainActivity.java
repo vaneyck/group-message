@@ -16,6 +16,7 @@ import com.orm.query.Select;
 import com.vanks.groupmessage.R;
 import com.vanks.groupmessage.arrayadapters.main.MessageListItemArrayAdapter;
 import com.vanks.groupmessage.models.persisted.Message;
+import com.vanks.groupmessage.utils.PreferenceUtil;
 import com.vanks.groupmessage.utils.ScheduleUtil;
 
 import java.util.ArrayList;

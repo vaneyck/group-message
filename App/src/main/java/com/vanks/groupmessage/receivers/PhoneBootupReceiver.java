@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.vanks.groupmessage.utils.PreferenceUtil;
 import com.vanks.groupmessage.utils.ScheduleUtil;
 
 /**

@@ -18,12 +18,14 @@ public class ScheduleUtil {
 	private static int MESSAGE_SEND_SERVICE_ALARM_ID = 4;
 
 	public static void scheduleMessageSendService (Context context) {
-		int delay  = PreferenceUtil.getBatchDispatchDelay(context);
-		scheduleMessageSendServiceAlarm(context, delay * 1000);
+		if (PreferenceUtil.isAppOn(context)) {
+			int delay  = PreferenceUtil.getBatchDispatchDelay(context);
+			scheduleMessageSendServiceAlarm(context, delay * 1000);
+		}
 	}
 
-	private static void cancelMessageSendServiceAlarm(Context context) {
-		Log.i("MessageSendService", "Canceling alarm at " + new Date());
+	public static void cancelMessageSendServiceAlarm(Context context) {
+		Log.i("ScheduleUtil", "Canceling alarm at " + new Date());
 		AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 		alarmManager.cancel(getMessageSendServiceIntent(context));
 	}
@@ -31,7 +33,7 @@ public class ScheduleUtil {
 
 	private static void scheduleMessageSendServiceAlarm(Context context, long interval) {
 		if(messageSendServiceAlarmRunning(context)) {
-			Log.i("MessageSendService", "MessageSendServiceAlarm running. Will not setup a new one");
+			Log.i("ScheduleUtil", "MessageSendServiceAlarm running. Will not setup a new one");
 			return;
 		}
 
@@ -39,7 +41,7 @@ public class ScheduleUtil {
 
 		AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 		alarmManager.set(AlarmManager.RTC_WAKEUP, timeToRun, getMessageSendServiceIntent(context));
-		Log.i("MessageSendService", "MessageSendService Alarm scheduled for : " + new Date(timeToRun));
+		Log.i("ScheduleUtil", "MessageSendService Alarm scheduled for : " + new Date(timeToRun));
 	}
 
 	private static boolean messageSendServiceAlarmRunning(Context context) {
