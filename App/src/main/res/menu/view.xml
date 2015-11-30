@@ -3,8 +3,12 @@
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="com.vanks.groupmessage.activities.MainActivity" >
 
-    <item android:id="@+id/action_queue_failed"
+      <item android:id="@+id/action_queue_failed"
           android:title="@string/action_queue_failed"
           android:orderInCategory="100"
           app:showAsAction="never" />
+      <item android:id="@+id/action_delete_message"
+            android:title="@string/action_delete_message"
+            android:orderInCategory="100"
+            app:showAsAction="never" />
 </menu>

@@ -61,6 +61,9 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
         }
+        if (id == R.id.action_delete_message) {
+
+        }
         return super.onOptionsItemSelected(item);
     }
 

@@ -1,11 +1,14 @@
 package com.vanks.groupmessage.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -53,6 +56,9 @@ public class ViewMessageActivity extends AppCompatActivity {
 		if (id == R.id.action_queue_failed) {
 			queueFailedDispatches();
 		}
+		if (id == R.id.action_delete_message) {
+			showConfirmDeleteDialog();
+		}
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -74,5 +80,28 @@ public class ViewMessageActivity extends AppCompatActivity {
 				dispatch.save();
 			}
 		}
+	}
+
+	private void showConfirmDeleteDialog () {
+		AlertDialog.Builder builder = new AlertDialog.Builder(ViewMessageActivity.this);
+		builder.setMessage(R.string.confirm_delete_message_message)
+				.setTitle(R.string.confirm_delete_message_title);
+		builder.setPositiveButton(R.string.delete_message, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				deleteMessage();
+			}
+		});
+		builder.setNegativeButton(R.string.dont_delete, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				dialog.cancel();
+			}
+		});
+		AlertDialog dialog = builder.create();
+		dialog.show();
+	}
+
+	private void deleteMessage() {
+		message.delete();
+		startActivity(new Intent(getApplicationContext(), MainActivity.class));
 	}
 }
