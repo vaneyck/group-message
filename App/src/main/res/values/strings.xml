@@ -16,7 +16,7 @@
     <string name="pref_dispatch_delay_summary">Duration to wait before sending every SMS.</string>
     <string name="pref_batch_dispatch_delay_title">Batch SMS delay</string>
     <string name="pref_batch_dispatch_delay_summary">Duration to wait before sending every batch of SMS</string>
-    <string name="pref_dispatch_pickup_size_title">Batch SMS Size</string>
+    <string name="pref_dispatch_pickup_size_title">Batch SMS size</string>
     <string name="pref_dispatch_pickup_size_summary">Batch SMS size to attempt sending after every Batch SMS Delay</string>
     <string name="cta_group_messase">No group messages have been sent</string>
     <string name="activity_view_message_label">View Group Message</string>
