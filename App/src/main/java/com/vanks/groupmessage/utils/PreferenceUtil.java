@@ -18,14 +18,17 @@ public class PreferenceUtil {
 	 * @return
 	 */
 	public static int getDispatchDelay (Context context) {
-		return PreferenceManager.getDefaultSharedPreferences(context).getInt(DISPATCH_DELAY, 7);
+		String delay = PreferenceManager.getDefaultSharedPreferences(context).getString(DISPATCH_DELAY, "7");
+		return Integer.parseInt(delay);
 	}
 
 	public static int getBatchDispatchDelay (Context context) {
-		return PreferenceManager.getDefaultSharedPreferences(context).getInt(BATCH_DISPATCH_DELAY, 60);
+		String delay = PreferenceManager.getDefaultSharedPreferences(context).getString(BATCH_DISPATCH_DELAY, "60");
+		return Integer.parseInt(delay);
 	}
 
 	public static int getDispatchPickupSize(Context context) {
-		return PreferenceManager.getDefaultSharedPreferences(context).getInt(DISPATCH_PICKUP_SIZE, 10);
+		String pickupSize = PreferenceManager.getDefaultSharedPreferences(context).getString(DISPATCH_PICKUP_SIZE, "10");
+		return Integer.parseInt(pickupSize);
 	}
 }
