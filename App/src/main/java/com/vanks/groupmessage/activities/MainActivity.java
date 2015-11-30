@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     ListView messageListView;
+    LinearLayout ctaGroupMessage;
     MessageListItemArrayAdapter messageListItemArrayAdapter;
     ArrayList<Message> messageArrayList;
 
@@ -72,9 +74,14 @@ public class MainActivity extends AppCompatActivity {
     private void initialiseUi () {
         messageArrayList = (ArrayList<Message>) Select.from(Message.class).orderBy("id desc").list();
         messageListView =  (ListView) findViewById(R.id.messageListView);
-        messageListItemArrayAdapter = new MessageListItemArrayAdapter(this, R.layout.landing_page_message_list_item, messageArrayList);
-        messageListView.setAdapter(messageListItemArrayAdapter);
-        messageListItemArrayAdapter.notifyDataSetChanged();
-        messageListView.setOnItemClickListener(messageItemListener);
+        ctaGroupMessage = (LinearLayout) findViewById(R.id.cta_group_message);
+        if(messageArrayList.size() > 0) {
+            messageListItemArrayAdapter = new MessageListItemArrayAdapter(this, R.layout.landing_page_message_list_item, messageArrayList);
+            messageListView.setAdapter(messageListItemArrayAdapter);
+            messageListItemArrayAdapter.notifyDataSetChanged();
+            messageListView.setOnItemClickListener(messageItemListener);
+        } else {
+            ctaGroupMessage.setVisibility(View.VISIBLE);
+        }
     }
 }
