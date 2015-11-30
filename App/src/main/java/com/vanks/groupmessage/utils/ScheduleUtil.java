@@ -16,14 +16,10 @@ import java.util.Date;
 public class ScheduleUtil {
 
 	private static int MESSAGE_SEND_SERVICE_ALARM_ID = 4;
-	/**
-	 * Schedule the MessageSendService to run after the given duration
-	 * @param context
-	 * @param duration
-	 */
-	public static void scheduleMessageSendService(Context context, int duration) {
-		cancelMessageSendServiceAlarm(context);
-		scheduleMessageSendServiceAlarm(context, duration);
+
+	public static void scheduleMessageSendService (Context context) {
+		int delay  = PreferenceUtil.getBatchDispatchDelay(context);
+		scheduleMessageSendServiceAlarm(context, delay * 1000);
 	}
 
 	private static void cancelMessageSendServiceAlarm(Context context) {

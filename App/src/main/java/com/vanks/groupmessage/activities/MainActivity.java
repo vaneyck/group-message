@@ -16,6 +16,7 @@ import com.orm.query.Select;
 import com.vanks.groupmessage.R;
 import com.vanks.groupmessage.arrayadapters.main.MessageListItemArrayAdapter;
 import com.vanks.groupmessage.models.persisted.Message;
+import com.vanks.groupmessage.utils.ScheduleUtil;
 
 import java.util.ArrayList;
 
@@ -37,6 +38,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), CreateMessageActivity.class));
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         initialiseUi();
     }
 
@@ -83,5 +89,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             ctaGroupMessage.setVisibility(View.VISIBLE);
         }
+        ScheduleUtil.scheduleMessageSendService(getApplicationContext());
     }
 }

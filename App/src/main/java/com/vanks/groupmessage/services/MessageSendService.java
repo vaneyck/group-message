@@ -21,7 +21,6 @@ public class MessageSendService extends IntentService {
 	protected void onHandleIntent(Intent intent) {
 		if (intent != null) {
 			retrieveAndSendDispatches();
-			queueMessageSendService();
 		}
 	}
 
@@ -42,11 +41,6 @@ public class MessageSendService extends IntentService {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-	}
-
-	private void queueMessageSendService () {
-		int delay  = PreferenceUtil.getBatchDispatchDelay(getApplicationContext());
-		ScheduleUtil.scheduleMessageSendService(getApplicationContext(), delay * 1000);
 	}
 
 	private void markDispatchesAsInFlight (List<Dispatch> dispatchList) {
