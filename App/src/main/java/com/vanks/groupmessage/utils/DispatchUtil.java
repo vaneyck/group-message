@@ -21,10 +21,30 @@ import java.util.List;
 public class DispatchUtil {
 	public static final String SENT_INTENT = "com.vanks.dispatch.SMS_SENT";
 
-	public static int sentCount(List<Dispatch> dispatchList) {
+	public static Integer sentCount(List<Dispatch> dispatchList) {
 		int count = 0;
 		for (Dispatch dispatch : dispatchList) {
 			if(dispatch.getStatus() == DispatchStatus.SENT) {
+				count++;
+			}
+		}
+		return count;
+	}
+
+	public static Integer failedCount(List<Dispatch> dispatchList) {
+		int count = 0;
+		for (Dispatch dispatch : dispatchList) {
+			if(dispatch.getStatus() == DispatchStatus.FAILED) {
+				count++;
+			}
+		}
+		return count;
+	}
+
+	public static Integer pendingCount(List<Dispatch> dispatchList) {
+		int count = 0;
+		for (Dispatch dispatch : dispatchList) {
+			if(dispatch.getStatus() == DispatchStatus.PENDING) {
 				count++;
 			}
 		}

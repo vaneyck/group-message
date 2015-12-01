@@ -17,6 +17,9 @@ import com.vanks.groupmessage.arrayadapters.view.DispatchArrayAdapter;
 import com.vanks.groupmessage.enums.DispatchStatus;
 import com.vanks.groupmessage.models.persisted.Dispatch;
 import com.vanks.groupmessage.models.persisted.Message;
+import com.vanks.groupmessage.utils.DispatchUtil;
+
+import java.util.List;
 
 /**
  * Created by vaneyck on 11/21/15.
@@ -24,7 +27,7 @@ import com.vanks.groupmessage.models.persisted.Message;
 public class ViewMessageActivity extends AppCompatActivity {
 
 	Message message;
-	TextView groupNameTextView, messageTextView;
+	TextView groupNameTextView, messageTextView, sentCountTextView, failedCountTextView, pendingCountTextView;
 	ListView dispatchListView;
 	DispatchArrayAdapter dispatchArrayAdapter;
 
@@ -63,11 +66,18 @@ public class ViewMessageActivity extends AppCompatActivity {
 	}
 
 	private void initialiseUi () {
+		List<Dispatch> dispatchList = message.getDispatches();
 		groupNameTextView = (TextView) findViewById(R.id.currentGroupNameTextView);
 		messageTextView = (TextView) findViewById(R.id.currentMessageTextView);
 		dispatchListView = (ListView) findViewById(R.id.dispatchListView);
+		sentCountTextView = (TextView) findViewById(R.id.sent_dispatch_count);
+		failedCountTextView = (TextView) findViewById(R.id.failed_dispatch_count);
+		pendingCountTextView = (TextView) findViewById(R.id.pending_dispatch_count);
 		groupNameTextView.setText("To : " + message.getGroupName());
 		messageTextView.setText(message.getText());
+		sentCountTextView.setText(DispatchUtil.sentCount(dispatchList).toString());
+		failedCountTextView.setText(DispatchUtil.failedCount(dispatchList).toString());
+		pendingCountTextView.setText(DispatchUtil.pendingCount(dispatchList).toString());
 		dispatchArrayAdapter =  new DispatchArrayAdapter(this, R.layout.activity_dispatch_list_item, message.getDispatches());
 		dispatchListView.setAdapter(dispatchArrayAdapter);
 		dispatchArrayAdapter.notifyDataSetChanged();
