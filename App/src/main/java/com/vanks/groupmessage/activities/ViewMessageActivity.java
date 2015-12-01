@@ -27,7 +27,7 @@ import java.util.List;
 public class ViewMessageActivity extends AppCompatActivity {
 
 	Message message;
-	TextView groupNameTextView, messageTextView, sentCountTextView, failedCountTextView, pendingCountTextView;
+	TextView groupNameTextView, messageTextView, sentCountTextView, failedCountTextView, pendingCountTextView, queuedCountTextView;
 	ListView dispatchListView;
 	DispatchArrayAdapter dispatchArrayAdapter;
 
@@ -73,11 +73,13 @@ public class ViewMessageActivity extends AppCompatActivity {
 		sentCountTextView = (TextView) findViewById(R.id.sent_dispatch_count);
 		failedCountTextView = (TextView) findViewById(R.id.failed_dispatch_count);
 		pendingCountTextView = (TextView) findViewById(R.id.pending_dispatch_count);
+		queuedCountTextView = (TextView) findViewById(R.id.queued_dispatch_count);
 		groupNameTextView.setText("To : " + message.getGroupName());
 		messageTextView.setText(message.getText());
 		sentCountTextView.setText(DispatchUtil.sentCount(dispatchList).toString());
 		failedCountTextView.setText(DispatchUtil.failedCount(dispatchList).toString());
 		pendingCountTextView.setText(DispatchUtil.pendingCount(dispatchList).toString());
+		queuedCountTextView.setText(DispatchUtil.queuedCount(dispatchList).toString());
 		dispatchArrayAdapter =  new DispatchArrayAdapter(this, R.layout.activity_dispatch_list_item, message.getDispatches());
 		dispatchListView.setAdapter(dispatchArrayAdapter);
 		dispatchArrayAdapter.notifyDataSetChanged();

@@ -51,6 +51,16 @@ public class DispatchUtil {
 		return count;
 	}
 
+	public static Integer queuedCount(List<Dispatch> dispatchList) {
+		int count = 0;
+		for (Dispatch dispatch : dispatchList) {
+			if(dispatch.getStatus() == DispatchStatus.QUEUED) {
+				count++;
+			}
+		}
+		return count;
+	}
+
 	public static void sendDispatch (Context context, Dispatch dispatch) {
 		if(!PreferenceUtil.isAppOn(context)) {
 			Log.i("DispatchUtil", "Marking dispatch as FAILED since app has been turned off");

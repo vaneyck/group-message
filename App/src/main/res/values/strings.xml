@@ -31,5 +31,6 @@
     <string name="sent_label">SENT</string>
     <string name="failed_label">FAILED</string>
     <string name="pending_label">PENDING</string>
+    <string name="queued_label">QUEUED</string>
 
 </resources>
