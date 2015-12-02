@@ -75,7 +75,8 @@ public class ViewMessageActivity extends AppCompatActivity {
 		pendingCountTextView = (TextView) findViewById(R.id.pending_dispatch_count);
 		queuedCountTextView = (TextView) findViewById(R.id.queued_dispatch_count);
 		groupNameTextView.setText("To : " + message.getGroupName());
-		messageTextView.setText(message.getText());
+		messageTextView.setText(message.getTextToDisplay());
+		messageTextView.setOnClickListener(showFullMessageInDialogListener);
 		sentCountTextView.setText(DispatchUtil.sentCount(dispatchList).toString());
 		failedCountTextView.setText(DispatchUtil.failedCount(dispatchList).toString());
 		pendingCountTextView.setText(DispatchUtil.pendingCount(dispatchList).toString());
@@ -93,6 +94,17 @@ public class ViewMessageActivity extends AppCompatActivity {
 			}
 		}
 	}
+
+	private View.OnClickListener showFullMessageInDialogListener = new View.OnClickListener () {
+		@Override
+		public void onClick(View v) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(ViewMessageActivity.this);
+			builder.setMessage(message.getText())
+					.setTitle(R.string.message_label);
+			AlertDialog dialog = builder.create();
+			dialog.show();
+		}
+	};
 
 	private void showConfirmDeleteDialog () {
 		AlertDialog.Builder builder = new AlertDialog.Builder(ViewMessageActivity.this);

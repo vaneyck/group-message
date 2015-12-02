@@ -34,5 +34,6 @@
     <string name="queued_label">QUEUED</string>
     <string name="next_dispatch_pickup_time_label">Next batch of messages will be sent on :</string>
     <string name="app_off_label">Message sending has been disabled</string>
+    <string name="message_label">Complete Message</string>
 
 </resources>

@@ -58,4 +58,14 @@ public class Message extends SugarRecord<Message> {
 	public String getText () {
 		return text;
 	}
+
+	public String getTextToDisplay () {
+		int textSize = text.length();
+		String moreHint = "";
+		if(textSize > 200) {
+			textSize = 200;
+			moreHint = "...";
+		}
+		return text.substring(0, textSize) + moreHint;
+	}
 }
