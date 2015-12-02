@@ -1,6 +1,7 @@
 package com.vanks.groupmessage.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -100,6 +101,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void setNextDispatchPickupTimeTextView () {
         Date date = PreferenceUtil.getNextDispatchRunTime(getApplicationContext());
-        nextDispatchPickupTimeTextView.setText(date.toString());
+        if(PreferenceUtil.isAppOn(getApplicationContext())) {
+            nextDispatchPickupTimeTextView.setText(date.toString());
+            nextDispatchPickupTimeTextView.setTextColor(Color.BLACK);
+        } else {
+            nextDispatchPickupTimeTextView.setText(R.string.app_off_label);
+            nextDispatchPickupTimeTextView.setTextColor(Color.RED);
+        }
     }
 }
