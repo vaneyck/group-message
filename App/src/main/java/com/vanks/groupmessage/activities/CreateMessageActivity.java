@@ -48,6 +48,7 @@ public class CreateMessageActivity extends AppCompatActivity implements LoaderMa
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_message);
+		getSupportLoaderManager().initLoader(URL_LOADER, null, this);
 	}
 
 	@Override
@@ -58,7 +59,6 @@ public class CreateMessageActivity extends AppCompatActivity implements LoaderMa
 		messageToSendEditText = (EditText) findViewById(R.id.messageToSendTextView);
 		queueMessageForSendingButton = (Button) findViewById(R.id.submitMessageForSendingButton);
 		queueMessageForSendingButton.setOnClickListener(showConfirmSendDialog);
-		getSupportLoaderManager().initLoader(URL_LOADER, null, this);
 	}
 
 	private void initialiseUi () {
