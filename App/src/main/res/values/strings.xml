@@ -32,5 +32,6 @@
     <string name="failed_label">FAILED</string>
     <string name="pending_label">PENDING</string>
     <string name="queued_label">QUEUED</string>
+    <string name="next_dispatch_pickup_time_label">Next batch of messages will be sent on :</string>
 
 </resources>

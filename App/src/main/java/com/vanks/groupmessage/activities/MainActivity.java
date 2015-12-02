@@ -20,10 +20,12 @@ import com.vanks.groupmessage.utils.PreferenceUtil;
 import com.vanks.groupmessage.utils.ScheduleUtil;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
     ListView messageListView;
     LinearLayout ctaGroupMessage;
+    TextView nextDispatchPickupTimeTextView;
     MessageListItemArrayAdapter messageListItemArrayAdapter;
     ArrayList<Message> messageArrayList;
 
@@ -82,6 +84,8 @@ public class MainActivity extends AppCompatActivity {
     private void initialiseUi () {
         messageArrayList = (ArrayList<Message>) Select.from(Message.class).orderBy("id desc").list();
         messageListView =  (ListView) findViewById(R.id.messageListView);
+        nextDispatchPickupTimeTextView = (TextView) findViewById(R.id.next_dispatch_pickup_time);
+        setNextDispatchPickupTimeTextView();
         ctaGroupMessage = (LinearLayout) findViewById(R.id.cta_group_message);
         if(messageArrayList.size() > 0) {
             messageListItemArrayAdapter = new MessageListItemArrayAdapter(this, R.layout.landing_page_message_list_item, messageArrayList);
@@ -92,5 +96,10 @@ public class MainActivity extends AppCompatActivity {
             ctaGroupMessage.setVisibility(View.VISIBLE);
         }
         ScheduleUtil.scheduleMessageSendService(getApplicationContext());
+    }
+
+    private void setNextDispatchPickupTimeTextView () {
+        Date date = PreferenceUtil.getNextDispatchRunTime(getApplicationContext());
+        nextDispatchPickupTimeTextView.setText(date.toString());
     }
 }
