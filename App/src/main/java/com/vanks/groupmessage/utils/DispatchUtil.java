@@ -20,6 +20,7 @@ import java.util.List;
  */
 public class DispatchUtil {
 	public static final String SENT_INTENT = "com.vanks.dispatch.SMS_SENT";
+	private static final String DELIVERED_INTENT = "com.vanks.dispatch.SMS_DELIVERED";
 
 	public static Integer sentCount(List<Dispatch> dispatchList) {
 		int count = 0;
@@ -75,15 +76,18 @@ public class DispatchUtil {
 		SmsManager smsManager = SmsManager.getDefault();
 		ArrayList<String> multipartMessageList = smsManager.divideMessage(text);
 		ArrayList<PendingIntent> sentPendingIntentsList = new ArrayList<PendingIntent>();
+		ArrayList<PendingIntent> deliveredPendingIntentsList = new ArrayList<PendingIntent>();
 
 		Intent sentIntent = new Intent(SENT_INTENT);
+		Intent deliveredIntent = new Intent(DELIVERED_INTENT);
 		sentIntent.putExtra("dispatchId", dispatchId);
 
 		for (int x = 0; x <= multipartMessageList.size(); x++) {
 			int uniqueBroadcastId = (int) (dispatchId * new Date().getTime());
 			sentPendingIntentsList.add(PendingIntent.getBroadcast(context, uniqueBroadcastId, sentIntent, 0));
+			deliveredPendingIntentsList.add(PendingIntent.getBroadcast(context, uniqueBroadcastId, deliveredIntent, 0));
 		}
-		smsManager.sendMultipartTextMessage(destinationNumber, null, multipartMessageList, sentPendingIntentsList, null);
+		smsManager.sendMultipartTextMessage(destinationNumber, null, multipartMessageList, sentPendingIntentsList, deliveredPendingIntentsList);
 	}
 
 	public static List<Dispatch> getDispatchesToSend(Context context) {

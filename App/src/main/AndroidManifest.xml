@@ -55,6 +55,11 @@
                 <action android:name="com.vanks.dispatch.SMS_SENT" />
             </intent-filter>
         </receiver>
+        <receiver android:name=".receivers.SmsDeliveredBroadcastReceiver">
+            <intent-filter>
+                <action android:name="com.vanks.dispatch.SMS_DELIVERED"/>
+            </intent-filter>
+        </receiver>
         <receiver android:name=".receivers.PhoneBootupReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
