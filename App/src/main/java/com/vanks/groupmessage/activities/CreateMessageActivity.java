@@ -162,6 +162,7 @@ public class CreateMessageActivity extends AppCompatActivity implements LoaderMa
 						if(!phoneNumberList.contains(phoneNumber)) {
 							Log.d("CreateMessageActivity", "contact " + name + ":" + phoneNumber);
 							contactArrayList.add(new Contact(name, phoneNumber));
+							phoneNumberList.add(phoneNumber);
 						}
 					} while (numberCursor.moveToNext());
 					numberCursor.close();
