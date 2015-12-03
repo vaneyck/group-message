@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
+
+    <item
+        jar="/home/vaneyck/.gradle/caches/modules-2/files-2.1/com.googlecode.libphonenumber/libphonenumber/6.0/64ab017d97b44eafa7a149bbd8dddfdf967b40de/libphonenumber-6.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="64ab017d97b44eafa7a149bbd8dddfdf967b40de">
+        <dex dex="/home/vaneyck/workspace/GroupMessage/App/build/intermediates/pre-dexed/defaultFlavor/debug/libphonenumber-6.0_57c6aae3a4399d945262c12ffee6071eda2278f3.jar" />
+    </item>
+
+</items>
