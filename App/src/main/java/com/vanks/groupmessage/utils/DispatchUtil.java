@@ -51,6 +51,7 @@ public class DispatchUtil {
 		Intent sentIntent = new Intent(SENT_INTENT);
 		Intent deliveredIntent = new Intent(DELIVERED_INTENT);
 		sentIntent.putExtra("dispatchId", dispatchId);
+		deliveredIntent.putExtra("dispatchId", dispatchId);
 
 		for (int x = 0; x <= multipartMessageList.size(); x++) {
 			int uniqueBroadcastId = (int) (dispatchId * new Date().getTime());
