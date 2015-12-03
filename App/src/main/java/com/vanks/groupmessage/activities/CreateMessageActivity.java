@@ -27,6 +27,7 @@ import com.vanks.groupmessage.models.unsaved.Group;
 import com.vanks.groupmessage.models.persisted.Message;
 import com.vanks.groupmessage.models.persisted.Dispatch;
 import com.vanks.groupmessage.services.MessageSendService;
+import com.vanks.groupmessage.utils.PhoneNumberUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -159,6 +160,7 @@ public class CreateMessageActivity extends AppCompatActivity implements LoaderMa
 					{
 						String phoneNumber = numberCursor.getString(numberColumnIndex);
 						phoneNumber = phoneNumber.replace(" ", "").trim();
+						phoneNumber = PhoneNumberUtils.getInternationalPhoneNumber(getApplicationContext(), phoneNumber, false);
 						if(!phoneNumberList.contains(phoneNumber)) {
 							Log.d("CreateMessageActivity", "contact " + name + ":" + phoneNumber);
 							contactArrayList.add(new Contact(name, phoneNumber));
