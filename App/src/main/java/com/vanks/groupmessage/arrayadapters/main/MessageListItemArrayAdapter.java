@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.vanks.groupmessage.R;
+import com.vanks.groupmessage.enums.DispatchStatus;
 import com.vanks.groupmessage.models.persisted.Dispatch;
 import com.vanks.groupmessage.models.persisted.Message;
 import com.vanks.groupmessage.utils.DispatchUtil;
@@ -50,7 +51,7 @@ public class MessageListItemArrayAdapter extends ArrayAdapter<Message> {
 		messageRowHolder.groupNameTextView.setText(message.getGroupName());
 		messageRowHolder.messageSummaryTextView.setText(message.getTextToDisplay());
 		messageRowHolder.messageIdTextView.setText(message.getId().toString());
-		messageRowHolder.sentMessagesProportionTextView.setText(DispatchUtil.sentCount(dispatches) + "/" + dispatches.size());
+		messageRowHolder.sentMessagesProportionTextView.setText(DispatchUtil.statusCount(dispatches, DispatchStatus.SENT) + "/" + dispatches.size());
 		return row;
 	}
 

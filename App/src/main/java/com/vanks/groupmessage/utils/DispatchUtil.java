@@ -22,40 +22,10 @@ public class DispatchUtil {
 	public static final String SENT_INTENT = "com.vanks.dispatch.SMS_SENT";
 	private static final String DELIVERED_INTENT = "com.vanks.dispatch.SMS_DELIVERED";
 
-	public static Integer sentCount(List<Dispatch> dispatchList) {
+	public static Integer statusCount(List<Dispatch> dispatchList, DispatchStatus status) {
 		int count = 0;
 		for (Dispatch dispatch : dispatchList) {
-			if(dispatch.getStatus() == DispatchStatus.SENT) {
-				count++;
-			}
-		}
-		return count;
-	}
-
-	public static Integer failedCount(List<Dispatch> dispatchList) {
-		int count = 0;
-		for (Dispatch dispatch : dispatchList) {
-			if(dispatch.getStatus() == DispatchStatus.FAILED) {
-				count++;
-			}
-		}
-		return count;
-	}
-
-	public static Integer pendingCount(List<Dispatch> dispatchList) {
-		int count = 0;
-		for (Dispatch dispatch : dispatchList) {
-			if(dispatch.getStatus() == DispatchStatus.PENDING) {
-				count++;
-			}
-		}
-		return count;
-	}
-
-	public static Integer queuedCount(List<Dispatch> dispatchList) {
-		int count = 0;
-		for (Dispatch dispatch : dispatchList) {
-			if(dispatch.getStatus() == DispatchStatus.QUEUED) {
+			if(dispatch.getStatus() == status) {
 				count++;
 			}
 		}

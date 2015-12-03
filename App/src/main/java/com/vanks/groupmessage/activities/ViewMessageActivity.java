@@ -77,10 +77,10 @@ public class ViewMessageActivity extends AppCompatActivity {
 		groupNameTextView.setText("To : " + message.getGroupName());
 		messageTextView.setText(message.getTextToDisplay());
 		messageTextView.setOnClickListener(showFullMessageInDialogListener);
-		sentCountTextView.setText(DispatchUtil.sentCount(dispatchList).toString());
-		failedCountTextView.setText(DispatchUtil.failedCount(dispatchList).toString());
-		pendingCountTextView.setText(DispatchUtil.pendingCount(dispatchList).toString());
-		queuedCountTextView.setText(DispatchUtil.queuedCount(dispatchList).toString());
+		sentCountTextView.setText(DispatchUtil.statusCount(dispatchList, DispatchStatus.SENT).toString());
+		failedCountTextView.setText(DispatchUtil.statusCount(dispatchList, DispatchStatus.FAILED).toString());
+		pendingCountTextView.setText(DispatchUtil.statusCount(dispatchList, DispatchStatus.PENDING).toString());
+		queuedCountTextView.setText(DispatchUtil.statusCount(dispatchList, DispatchStatus.QUEUED).toString());
 		dispatchArrayAdapter =  new DispatchArrayAdapter(this, R.layout.activity_dispatch_list_item, message.getDispatches());
 		dispatchListView.setAdapter(dispatchArrayAdapter);
 		dispatchArrayAdapter.notifyDataSetChanged();

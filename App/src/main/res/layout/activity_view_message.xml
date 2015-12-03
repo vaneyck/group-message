@@ -37,6 +37,42 @@
 					android:textStyle="bold"
 					android:textAppearance="?android:attr/textAppearanceLarge"
 					android:text="3"
+					android:id="@+id/delivered_dispatch_count"/>
+				<TextView
+					android:layout_width="fill_parent"
+					android:gravity="center"
+					android:layout_height="wrap_content"
+					android:text="@string/delivered_label"/>
+			</LinearLayout>
+			<LinearLayout
+				android:layout_width="wrap_content"
+				android:layout_weight="0.25"
+				android:orientation="vertical">
+				<TextView
+					android:layout_width="fill_parent"
+					android:gravity="center"
+					android:layout_height="wrap_content"
+					android:textStyle="bold"
+					android:textAppearance="?android:attr/textAppearanceLarge"
+					android:text="3"
+					android:id="@+id/not_delivered_dispatch_count"/>
+				<TextView
+					android:layout_width="fill_parent"
+					android:gravity="center"
+					android:layout_height="wrap_content"
+					android:text="@string/no_delivered_label"/>
+			</LinearLayout>
+			<LinearLayout
+				android:layout_width="wrap_content"
+				android:layout_weight="0.25"
+				android:orientation="vertical">
+				<TextView
+					android:layout_width="fill_parent"
+					android:gravity="center"
+					android:layout_height="wrap_content"
+					android:textStyle="bold"
+					android:textAppearance="?android:attr/textAppearanceLarge"
+					android:text="3"
 					android:id="@+id/sent_dispatch_count"/>
 				<TextView
 					android:layout_width="fill_parent"
