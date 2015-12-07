@@ -68,7 +68,6 @@ public class ViewMessageActivity extends AppCompatActivity {
 	}
 
 	private void initialiseUi () {
-		List<Dispatch> dispatchList = message.getDispatches();
 		groupNameTextView = (TextView) findViewById(R.id.currentGroupNameTextView);
 		messageTextView = (TextView) findViewById(R.id.currentMessageTextView);
 		dispatchListView = (ListView) findViewById(R.id.dispatchListView);
@@ -81,23 +80,23 @@ public class ViewMessageActivity extends AppCompatActivity {
 		groupNameTextView.setText("To : " + message.getGroupName());
 		messageTextView.setText(message.getTextToDisplay());
 		messageTextView.setOnClickListener(showFullMessageInDialogListener);
-		sentCountTextView.setText(DispatchUtil.statusCount(dispatchList, DispatchStatus.SENT).toString());
-		failedCountTextView.setText(DispatchUtil.statusCount(dispatchList, DispatchStatus.FAILED).toString());
-		pendingCountTextView.setText(DispatchUtil.statusCount(dispatchList, DispatchStatus.PENDING).toString());
-		queuedCountTextView.setText(DispatchUtil.statusCount(dispatchList, DispatchStatus.QUEUED).toString());
-		deliveredCountTextView.setText(DispatchUtil.statusCount(dispatchList, DispatchStatus.DELIVERED).toString());
-		notDeliveredCountTextView.setText(DispatchUtil.statusCount(dispatchList, DispatchStatus.NOT_DELIVERED).toString());
+		sentCountTextView.setText(message.countDispatchesByStatus(DispatchStatus.SENT).toString());
+		failedCountTextView.setText(message.countDispatchesByStatus(DispatchStatus.FAILED).toString());
+		pendingCountTextView.setText(message.countDispatchesByStatus(DispatchStatus.PENDING).toString());
+		queuedCountTextView.setText(message.countDispatchesByStatus(DispatchStatus.QUEUED).toString());
+		deliveredCountTextView.setText(message.countDispatchesByStatus(DispatchStatus.DELIVERED).toString());
+		notDeliveredCountTextView.setText(message.countDispatchesByStatus(DispatchStatus.NOT_DELIVERED).toString());
 		dispatchArrayAdapter =  new DispatchArrayAdapter(this, R.layout.activity_dispatch_list_item, message.getDispatches());
 		dispatchListView.setAdapter(dispatchArrayAdapter);
 		dispatchArrayAdapter.notifyDataSetChanged();
 	}
 
 	private void queueFailedDispatches () {
-		for (Dispatch dispatch : message.getDispatches()) {
-			if(dispatch.getStatus() == DispatchStatus.FAILED) {
-				dispatch.setStatus(DispatchStatus.QUEUED);
-				dispatch.save();
-			}
+		String[] args = { message.getId().toString(), DispatchStatus.FAILED.toString() };
+		List<Dispatch> failedDispatches = Dispatch.find(Dispatch.class, "message = ? and status = ?", args);
+		for (Dispatch dispatch : failedDispatches) {
+			dispatch.setStatus(DispatchStatus.QUEUED);
+			dispatch.save();
 		}
 	}
 

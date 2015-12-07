@@ -47,11 +47,11 @@ public class MessageListItemArrayAdapter extends ArrayAdapter<Message> {
 			messageRowHolder = (MessageRowHolder) row.getTag();
 		}
 		Message message = messageArrayList.get(position);
-		List<Dispatch> dispatches = message.getDispatches();
 		messageRowHolder.groupNameTextView.setText(message.getGroupName());
 		messageRowHolder.messageSummaryTextView.setText(message.getTextToDisplay());
 		messageRowHolder.messageIdTextView.setText(message.getId().toString());
-		messageRowHolder.sentMessagesProportionTextView.setText(DispatchUtil.statusCount(dispatches, DispatchStatus.DELIVERED) + "/" + DispatchUtil.statusCount(dispatches, DispatchStatus.SENT) + "//" + dispatches.size());
+		messageRowHolder.sentMessagesProportionTextView.setText(message.countDispatchesByStatus(DispatchStatus.DELIVERED) + "/"
+				+ message.countDispatchesByStatus(DispatchStatus.SENT) + "//" + message.countDispatches());
 		return row;
 	}
 

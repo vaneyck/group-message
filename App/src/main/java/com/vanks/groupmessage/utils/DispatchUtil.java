@@ -22,16 +22,6 @@ public class DispatchUtil {
 	public static final String SENT_INTENT = "com.vanks.dispatch.SMS_SENT";
 	private static final String DELIVERED_INTENT = "com.vanks.dispatch.SMS_DELIVERED";
 
-	public static Integer statusCount(List<Dispatch> dispatchList, DispatchStatus status) {
-		int count = 0;
-		for (Dispatch dispatch : dispatchList) {
-			if(dispatch.getStatus() == status) {
-				count++;
-			}
-		}
-		return count;
-	}
-
 	public static void sendDispatch (Context context, Dispatch dispatch) {
 		if(!PreferenceUtil.isAppOn(context)) {
 			Log.i("DispatchUtil", "Marking dispatch as FAILED since app has been turned off");

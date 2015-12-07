@@ -1,6 +1,7 @@
 package com.vanks.groupmessage.models.persisted;
 
 import com.orm.SugarRecord;
+import com.vanks.groupmessage.enums.DispatchStatus;
 
 import java.util.Date;
 import java.util.List;
@@ -48,6 +49,17 @@ public class Message extends SugarRecord<Message> {
 		return groupName;
 
 	}
+
+	public Long countDispatchesByStatus (DispatchStatus status) {
+		String[] args = { this.getId().toString(), status.toString() };
+		return (Long) Dispatch.count(Dispatch.class, "message = ? and status = ?", args);
+	}
+
+	public Long countDispatches () {
+		String[] args = { this.getId().toString() };
+		return (Long) Dispatch.count(Dispatch.class, "message = ?", args);
+	}
+
 	public Long getDateCreated() {
 		return dateCreated;
 	}
@@ -55,6 +67,7 @@ public class Message extends SugarRecord<Message> {
 	public void setDateCreated(Long dateCreated) {
 		this.dateCreated = dateCreated;
 	}
+
 	public String getText () {
 		return text;
 	}
