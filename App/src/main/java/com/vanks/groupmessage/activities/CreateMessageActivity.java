@@ -27,6 +27,7 @@ import com.vanks.groupmessage.models.unsaved.Group;
 import com.vanks.groupmessage.models.persisted.Message;
 import com.vanks.groupmessage.models.persisted.Dispatch;
 import com.vanks.groupmessage.services.MessageSendService;
+import com.vanks.groupmessage.services.QueueMessageService;
 import com.vanks.groupmessage.utils.PhoneNumberUtils;
 
 import java.util.ArrayList;
@@ -92,8 +93,19 @@ public class CreateMessageActivity extends AppCompatActivity implements LoaderMa
 		int index = groupListSpinner.getSelectedItemPosition();
 		Group selectedGroup = groupArrayList.get(index);
 		String messageToSend = messageToSendEditText.getText().toString();
-		ArrayList<Contact> contactArrayList = getContactsInGroup(selectedGroup);
-		queueGroupMessageForSending(messageToSend, selectedGroup, contactArrayList);
+
+		//queue messages for sending
+		Intent intent = new Intent(getApplicationContext(), QueueMessageService.class);
+		intent.putExtra("messageToSend", messageToSend);
+		intent.putExtra("groupId", selectedGroup.getId());
+		intent.putExtra("groupName", selectedGroup.getName());
+		startService(intent);
+		// schedule message sending
+		startService(new Intent(getApplicationContext(), MessageSendService.class));
+		//navigate to the main screen
+		Intent mainActivityIntent = new Intent(getApplicationContext(), MainActivity.class);
+		mainActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+		startActivity(mainActivityIntent);
 	}
 
 	//>LoaderManager.LoaderCallbacks<Cursor> interface methods
@@ -128,68 +140,4 @@ public class CreateMessageActivity extends AppCompatActivity implements LoaderMa
 
 	@Override
 	public void onLoaderReset(Loader<Cursor> cursorLoader) {}
-
-	/**
-	 * Retrieve contacts given the group id
-	 * @param group
-	 * @return
-	 */
-	private ArrayList<Contact> getContactsInGroup (Group group) {
-		ArrayList<Contact> contactArrayList = new ArrayList<>();
-		ArrayList<String> phoneNumberList = new ArrayList<>();
-		Long groupId = group.getId();
-		String[] cProjection = { ContactsContract.Contacts.DISPLAY_NAME, ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID };
-
-		Cursor groupCursor = getContentResolver().query(
-				ContactsContract.Data.CONTENT_URI,
-				cProjection,
-				ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID + "= ?" + " AND "
-						+ ContactsContract.CommonDataKinds.GroupMembership.MIMETYPE + "='"
-						+ ContactsContract.CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE + "'",
-				new String[] { String.valueOf(groupId) }, null);
-		if (groupCursor != null && groupCursor.moveToFirst()) {
-			do {
-				int nameCoumnIndex = groupCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
-				String name = groupCursor.getString(nameCoumnIndex);
-				long contactId = groupCursor.getLong(groupCursor.getColumnIndex(ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID));
-				Cursor numberCursor = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-						new String[] { ContactsContract.CommonDataKinds.Phone.NUMBER }, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=" + contactId, null, null);
-				if (numberCursor.moveToFirst()) {
-					int numberColumnIndex = numberCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
-					do
-					{
-						String phoneNumber = numberCursor.getString(numberColumnIndex);
-						phoneNumber = phoneNumber.replace(" ", "").trim();
-						phoneNumber = PhoneNumberUtils.getInternationalPhoneNumber(getApplicationContext(), phoneNumber, false);
-						if(!phoneNumberList.contains(phoneNumber)) {
-							Log.d("CreateMessageActivity", "contact " + name + ":" + phoneNumber);
-							contactArrayList.add(new Contact(name, phoneNumber));
-							phoneNumberList.add(phoneNumber);
-						}
-					} while (numberCursor.moveToNext());
-					numberCursor.close();
-				}
-			} while (groupCursor.moveToNext());
-			groupCursor.close();
-		}
-		return contactArrayList;
-	}
-
-	/**
-	 * Store the message into database for sending later on
-	 * @param messageToSend
-	 * @param group
-	 * @param contactList
-	 */
-	private void queueGroupMessageForSending (String messageToSend,Group group, List<Contact> contactList) {
-		Message message = new Message(messageToSend, group.getId(), group.getName());
-		message.save();
-		for (Contact contact : contactList) {
-			Dispatch dispatch = new Dispatch(contact.getPhoneNumber(), contact.getName(), message);
-			dispatch.save();
-		}
-		Toast.makeText(getApplicationContext(), "Message queued for sending", Toast.LENGTH_LONG).show();
-		startService(new Intent(getApplicationContext(), MessageSendService.class));
-		startActivity(new Intent(getApplicationContext(), MainActivity.class));
-	}
 }
