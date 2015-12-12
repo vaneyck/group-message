@@ -1,6 +1,9 @@
 package com.vanks.groupmessage.activities;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -29,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     TextView nextDispatchPickupTimeTextView;
     MessageListItemArrayAdapter messageListItemArrayAdapter;
     ArrayList<Message> messageArrayList;
+    public static final String REFRESH_UI_INTENT_FILTER = "com.vanks.groupmessage.main_activity.refresh_ui";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         initialiseUi();
+        registerReceiver(refreshUiBroadcastReceiver, refreshUiIntentFilter);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(refreshUiBroadcastReceiver);
     }
 
     @Override
@@ -109,4 +120,14 @@ public class MainActivity extends AppCompatActivity {
             nextDispatchPickupTimeTextView.setTextColor(Color.RED);
         }
     }
+
+    private BroadcastReceiver refreshUiBroadcastReceiver = new BroadcastReceiver () {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            initialiseUi();
+        }
+    };
+
+    private IntentFilter refreshUiIntentFilter = new IntentFilter(REFRESH_UI_INTENT_FILTER);
 }

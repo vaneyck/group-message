@@ -5,13 +5,11 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.provider.ContactsContract;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.vanks.groupmessage.activities.MainActivity;
 import com.vanks.groupmessage.models.persisted.Dispatch;
 import com.vanks.groupmessage.models.persisted.Message;
 import com.vanks.groupmessage.models.unsaved.Contact;
-import com.vanks.groupmessage.models.unsaved.Group;
 import com.vanks.groupmessage.utils.PhoneNumberUtils;
 
 import java.util.ArrayList;
@@ -55,6 +53,7 @@ public class QueueMessageService extends IntentService {
 			Dispatch dispatch = new Dispatch(contact.getPhoneNumber(), contact.getName(), message);
 			dispatch.save();
 		}
+		sendBroadcast(new Intent(MainActivity.REFRESH_UI_INTENT_FILTER));
 	}
 
 	/**
