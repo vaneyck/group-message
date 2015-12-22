@@ -48,6 +48,44 @@
 					android:text="12th December 2015, 12:12PM"
 					android:id="@+id/next_dispatch_pickup_time"/>
 			</LinearLayout>
+			<LinearLayout
+				android:layout_height="wrap_content"
+				android:layout_width="fill_parent"
+				android:padding="3pt"
+				android:visibility="gone"
+				android:id="@+id/save_progress_bar_container"
+				android:orientation="vertical">
+				<ProgressBar
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+					android:progress="40"
+					android:progressTint="@color/red"
+					android:id="@+id/save_progress_bar"
+					style="@android:style/Widget.Holo.ProgressBar.Horizontal"/>
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:id="@+id/save_progress_bar_text"
+					android:text="saving" />
+			</LinearLayout>
+			<LinearLayout
+				android:layout_height="wrap_content"
+				android:layout_width="fill_parent"
+				android:padding="3pt"
+				android:id="@+id/sending_progress_bar_container"
+				android:orientation="vertical">
+				<ProgressBar
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+					android:progress="60"
+					android:id="@+id/sending_progress_bar"
+					style="@android:style/Widget.Holo.ProgressBar.Horizontal"/>
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:id="@+id/sending_progress_bar_text"
+					android:text="saving" />
+			</LinearLayout>
 			<ListView
 				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"

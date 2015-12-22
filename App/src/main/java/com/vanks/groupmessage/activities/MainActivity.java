@@ -14,11 +14,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.orm.query.Select;
 import com.vanks.groupmessage.R;
 import com.vanks.groupmessage.arrayadapters.main.MessageListItemArrayAdapter;
+import com.vanks.groupmessage.enums.DispatchStatus;
+import com.vanks.groupmessage.models.persisted.Dispatch;
 import com.vanks.groupmessage.models.persisted.Message;
 import com.vanks.groupmessage.utils.PreferenceUtil;
 import com.vanks.groupmessage.utils.ScheduleUtil;
@@ -29,10 +32,13 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity {
     ListView messageListView;
     LinearLayout ctaGroupMessage;
-    TextView nextDispatchPickupTimeTextView;
+    ProgressBar sendingDispatchesProgressBar, savingDispatchesProgressBar;
+    LinearLayout sendingDispatchesLinearLayout;
+    TextView nextDispatchPickupTimeTextView, sendingDispatchesProgressBarTextView, savingDispatchesProgressBarTextView;
     MessageListItemArrayAdapter messageListItemArrayAdapter;
     ArrayList<Message> messageArrayList;
     public static final String REFRESH_UI_INTENT_FILTER = "com.vanks.groupmessage.main_activity.refresh_ui";
+    public static final String UPDATE_SENDING_PROGRESS_BAR = "com.vanks.groupmessage.main_activity.update_sending_progress_bar";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,12 +59,14 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         initialiseUi();
         registerReceiver(refreshUiBroadcastReceiver, refreshUiIntentFilter);
+        registerReceiver(updateDispatchSendingProgressListener, updateDispatchSendingFilter);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         unregisterReceiver(refreshUiBroadcastReceiver);
+        unregisterReceiver(updateDispatchSendingProgressListener);
     }
 
     @Override
@@ -96,7 +104,12 @@ public class MainActivity extends AppCompatActivity {
     private void initialiseUi () {
         messageArrayList = (ArrayList<Message>) Select.from(Message.class).orderBy("id desc").list();
         messageListView =  (ListView) findViewById(R.id.messageListView);
+        sendingDispatchesProgressBar = (ProgressBar) findViewById(R.id.sending_progress_bar);
+        sendingDispatchesProgressBarTextView = (TextView) findViewById(R.id.sending_progress_bar_text);
+        savingDispatchesProgressBar = (ProgressBar) findViewById(R.id.save_progress_bar);
+        savingDispatchesProgressBarTextView = (TextView) findViewById(R.id.save_progress_bar_text);
         nextDispatchPickupTimeTextView = (TextView) findViewById(R.id.next_dispatch_pickup_time);
+        sendingDispatchesLinearLayout = (LinearLayout) findViewById(R.id.sending_progress_bar_container);
         setNextDispatchPickupTimeTextView();
         ctaGroupMessage = (LinearLayout) findViewById(R.id.cta_group_message);
         if(messageArrayList.size() > 0) {
@@ -108,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
             ctaGroupMessage.setVisibility(View.VISIBLE);
         }
         ScheduleUtil.scheduleMessageSendService(getApplicationContext());
+        updateSendingProgressData();
     }
 
     private void setNextDispatchPickupTimeTextView () {
@@ -129,5 +143,23 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    private BroadcastReceiver updateDispatchSendingProgressListener = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            updateSendingProgressData();
+        }
+    };
+
+    private void updateSendingProgressData () {
+        String[] args = { DispatchStatus.QUEUED.toString() };
+        long queuedCount = Dispatch.count(Dispatch.class, "status = ?", args);
+        long allCount = Dispatch.count(Dispatch.class, null, null);
+        long notQueuedCount = allCount - queuedCount;
+        int sentDispatchesPercentage = (int) Math.floor(notQueuedCount / allCount * 100);
+        sendingDispatchesProgressBar.setProgress(sentDispatchesPercentage);
+        sendingDispatchesProgressBarTextView.setText("Sent " + notQueuedCount + " out of " + allCount);
+    }
+
     private IntentFilter refreshUiIntentFilter = new IntentFilter(REFRESH_UI_INTENT_FILTER);
+    private IntentFilter updateDispatchSendingFilter = new IntentFilter(UPDATE_SENDING_PROGRESS_BAR);
 }
