@@ -31,11 +31,11 @@
     <string name="next_dispatch_pickup_time_label">Next batch of messages will be sent on :</string>
     <string name="app_off_label">Message sending has been disabled</string>
     <string name="message_label">Complete Message</string>
-    <string name="delivered_label">DLD</string>
-    <string name="no_delivered_label">N_DLD</string>
-    <string name="sent_label">SNT</string>
-    <string name="failed_label">FLD</string>
-    <string name="pending_label">PDNG</string>
-    <string name="queued_label">QEUD</string>
+    <string name="delivered_label">DELIVERED</string>
+    <string name="no_delivered_label">NOT DELIVERED</string>
+    <string name="sent_label">SENT</string>
+    <string name="failed_label">FAILED</string>
+    <string name="pending_label">PENDING</string>
+    <string name="queued_label">QUEUED</string>
 
 </resources>
