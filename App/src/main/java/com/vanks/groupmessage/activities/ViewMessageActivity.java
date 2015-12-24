@@ -130,7 +130,9 @@ public class ViewMessageActivity extends AppCompatActivity {
 	}
 
 	private void deleteMessage() {
+		String messageIdAsString = message.toString();
 		message.delete();
+		Dispatch.deleteAll(Dispatch.class, "message = ?", messageIdAsString);
 		startActivity(new Intent(getApplicationContext(), MainActivity.class));
 	}
 }
