@@ -11,6 +11,7 @@ import com.vanks.groupmessage.activities.MainActivity;
 import com.vanks.groupmessage.models.persisted.Dispatch;
 import com.vanks.groupmessage.models.persisted.Message;
 import com.vanks.groupmessage.models.unsaved.Contact;
+import com.vanks.groupmessage.utils.GroupUtil;
 import com.vanks.groupmessage.utils.PhoneNumberUtils;
 
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class QueueMessageService extends IntentService {
 			Long groupId = intent.getLongExtra("groupId", 0);
 			String groupName = intent.getStringExtra("groupName");
 			String messageToSend = intent.getStringExtra("messageToSend");
-			ArrayList<Contact> contactArrayList = getContactsInGroup(groupId);
+			ArrayList<Contact> contactArrayList = GroupUtil.getContactsInGroup(this, groupId);
 			queueGroupMessageForSending(messageToSend, groupId, groupName, contactArrayList);
 			sendBroadcast(new Intent(CreateMessageActivity.MESSAGE_SAVED_INTENT));
 		}
@@ -56,50 +57,5 @@ public class QueueMessageService extends IntentService {
 			dispatch.save();
 		}
 		sendBroadcast(new Intent(MainActivity.REFRESH_UI_INTENT_FILTER));
-	}
-
-	/**
-	 * Retrieve contacts given the group id
-	 * @param groupId
-	 * @return
-	 */
-	private ArrayList<Contact> getContactsInGroup (Long groupId) {
-		ArrayList<Contact> contactArrayList = new ArrayList<>();
-		ArrayList<String> phoneNumberList = new ArrayList<>();
-		String[] cProjection = { ContactsContract.Contacts.DISPLAY_NAME, ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID };
-
-		Cursor groupCursor = getContentResolver().query(
-				ContactsContract.Data.CONTENT_URI,
-				cProjection,
-				ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID + "= ?" + " AND "
-						+ ContactsContract.CommonDataKinds.GroupMembership.MIMETYPE + "='"
-						+ ContactsContract.CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE + "'",
-				new String[] { String.valueOf(groupId) }, null);
-		if (groupCursor != null && groupCursor.moveToFirst()) {
-			do {
-				int nameCoumnIndex = groupCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
-				String name = groupCursor.getString(nameCoumnIndex);
-				long contactId = groupCursor.getLong(groupCursor.getColumnIndex(ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID));
-				Cursor numberCursor = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-						new String[] { ContactsContract.CommonDataKinds.Phone.NUMBER }, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=" + contactId, null, null);
-				if (numberCursor.moveToFirst()) {
-					int numberColumnIndex = numberCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
-					do
-					{
-						String phoneNumber = numberCursor.getString(numberColumnIndex);
-						phoneNumber = phoneNumber.replace(" ", "").trim();
-						phoneNumber = PhoneNumberUtils.getInternationalPhoneNumber(getApplicationContext(), phoneNumber, false);
-						if(!phoneNumberList.contains(phoneNumber)) {
-							Log.d("CreateMessageActivity", "contact " + name + ":" + phoneNumber);
-							contactArrayList.add(new Contact(name, phoneNumber));
-							phoneNumberList.add(phoneNumber);
-						}
-					} while (numberCursor.moveToNext());
-					numberCursor.close();
-				}
-			} while (groupCursor.moveToNext());
-			groupCursor.close();
-		}
-		return contactArrayList;
 	}
 }
