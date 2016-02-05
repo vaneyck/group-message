@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.provider.ContactsContract;
 import android.util.Log;
 
+import com.vanks.groupmessage.activities.CreateMessageActivity;
 import com.vanks.groupmessage.activities.MainActivity;
 import com.vanks.groupmessage.models.persisted.Dispatch;
 import com.vanks.groupmessage.models.persisted.Message;
@@ -36,6 +37,7 @@ public class QueueMessageService extends IntentService {
 			String messageToSend = intent.getStringExtra("messageToSend");
 			ArrayList<Contact> contactArrayList = getContactsInGroup(groupId);
 			queueGroupMessageForSending(messageToSend, groupId, groupName, contactArrayList);
+			sendBroadcast(new Intent(CreateMessageActivity.MESSAGE_SAVED_INTENT));
 		}
 	}
 

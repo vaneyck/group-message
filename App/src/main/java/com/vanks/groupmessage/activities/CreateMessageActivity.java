@@ -2,8 +2,11 @@ package com.vanks.groupmessage.activities;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -13,25 +16,19 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.vanks.groupmessage.R;
 import com.vanks.groupmessage.arrayadapters.create.GroupArrayAdapter;
-import com.vanks.groupmessage.models.unsaved.Contact;
 import com.vanks.groupmessage.models.unsaved.Group;
-import com.vanks.groupmessage.models.persisted.Message;
-import com.vanks.groupmessage.models.persisted.Dispatch;
 import com.vanks.groupmessage.services.MessageSendService;
 import com.vanks.groupmessage.services.QueueMessageService;
-import com.vanks.groupmessage.utils.PhoneNumberUtils;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
 * Created by vaneyck on 11/21/15.
@@ -43,8 +40,10 @@ public class CreateMessageActivity extends AppCompatActivity implements LoaderMa
 	Button queueMessageForSendingButton;
 	ArrayList<Group> groupArrayList;
 	GroupArrayAdapter groupArrayAdapter;
+	Dialog showSavingProgressDialog;
 
 	private static final int URL_LOADER = 0;
+	public static final String MESSAGE_SAVED_INTENT = "message.saved.intent";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -89,10 +88,25 @@ public class CreateMessageActivity extends AppCompatActivity implements LoaderMa
 		}
 	};
 
+	private Dialog showSendingProgressDialog () {
+		AlertDialog.Builder builder = new AlertDialog.Builder(CreateMessageActivity.this);
+		LayoutInflater inflater = getLayoutInflater();
+		builder.setView(inflater.inflate(R.layout.dialog_save_message_progress, null));
+		builder.setTitle(R.string.saving_message_label);
+		AlertDialog dialog = builder.create();
+		dialog.show();
+		dialog.setCancelable(false);
+		dialog.setCanceledOnTouchOutside(false);
+		return dialog;
+	}
+
 	public void queueMessage () {
 		int index = groupListSpinner.getSelectedItemPosition();
 		Group selectedGroup = groupArrayList.get(index);
 		String messageToSend = messageToSendEditText.getText().toString();
+
+		showSavingProgressDialog = showSendingProgressDialog();
+		registerReceiver(dismissProgressDialogReceiver, dismissProgressDialogIntentFilter);
 
 		//queue messages for sending
 		Intent intent = new Intent(getApplicationContext(), QueueMessageService.class);
@@ -100,13 +114,23 @@ public class CreateMessageActivity extends AppCompatActivity implements LoaderMa
 		intent.putExtra("groupId", selectedGroup.getId());
 		intent.putExtra("groupName", selectedGroup.getName());
 		startService(intent);
-		// schedule message sending
-		startService(new Intent(getApplicationContext(), MessageSendService.class));
-		//navigate to the main screen
-		Intent mainActivityIntent = new Intent(getApplicationContext(), MainActivity.class);
-		mainActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-		startActivity(mainActivityIntent);
 	}
+
+	private BroadcastReceiver dismissProgressDialogReceiver = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			showSavingProgressDialog.dismiss();
+			unregisterReceiver(dismissProgressDialogReceiver);
+			// schedule message sending
+			startService(new Intent(getApplicationContext(), MessageSendService.class));
+			// navigate to the main screen
+			Intent mainActivityIntent = new Intent(getApplicationContext(), MainActivity.class);
+			mainActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+			startActivity(mainActivityIntent);
+		}
+	};
+
+	private IntentFilter dismissProgressDialogIntentFilter = new IntentFilter(MESSAGE_SAVED_INTENT);
 
 	//>LoaderManager.LoaderCallbacks<Cursor> interface methods
 	@Override
