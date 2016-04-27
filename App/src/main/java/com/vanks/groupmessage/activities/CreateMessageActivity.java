@@ -27,6 +27,7 @@ import com.vanks.groupmessage.arrayadapters.create.GroupArrayAdapter;
 import com.vanks.groupmessage.models.unsaved.Group;
 import com.vanks.groupmessage.services.MessageSendService;
 import com.vanks.groupmessage.services.QueueMessageService;
+import com.vanks.groupmessage.utils.GroupUtil;
 
 import java.util.ArrayList;
 
@@ -156,7 +157,7 @@ public class CreateMessageActivity extends AppCompatActivity implements LoaderMa
 		do {
 			String groupName = cursor.getString(cursor.getColumnIndex(ContactsContract.Groups.TITLE));
 			Long groupId = cursor.getLong(cursor.getColumnIndex(ContactsContract.Groups._ID));
-			groupArrayList.add(new Group(groupName, groupId));
+			groupArrayList.add(new Group(groupName, groupId, GroupUtil.getGroupCount(this, groupId)));
 			initialiseUi();
 		} while(cursor.moveToNext());
 		cursor.close();

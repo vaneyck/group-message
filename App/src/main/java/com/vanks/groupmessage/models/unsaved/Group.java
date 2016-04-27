@@ -6,10 +6,12 @@ package com.vanks.groupmessage.models.unsaved;
 public class Group {
 	String name;
 	Long id;
+	Long count;
 
-	public Group (String name, Long id) {
+	public Group (String name, Long id, Long count) {
 		this.name = name;
 		this.id = id;
+		this.count = count;
 	}
 
 	public Long getId() {
@@ -26,5 +28,9 @@ public class Group {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Long getCount () {
+		return this.count;
 	}
 }

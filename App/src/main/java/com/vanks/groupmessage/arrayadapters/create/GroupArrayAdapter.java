@@ -42,18 +42,21 @@ public class GroupArrayAdapter extends ArrayAdapter<Group> {
 	public View getCustomView(int position, View convertView, ViewGroup parent) {
 		View row = convertView;
 		GroupRowHolder holder = null;
+		Group group = groupArrayList.get(position);
 		LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+
 		row = inflater.inflate(layoutResourceId, parent, false);
 		holder = new GroupRowHolder();
 		holder.groupName = (TextView) row.findViewById(R.id.groupName);
 		holder.groupId = (TextView) row.findViewById(R.id.groupId);
-		Group group = groupArrayList.get(position);
+		holder.groupCount = (TextView) row.findViewById(R.id.groupCount);
 		holder.groupName.setText(group.getName());
 		holder.groupId.setText(group.getId().toString());
+		holder.groupCount.setText("(" + group.getCount().toString() + ")");
 		return row;
 	}
 
 	static class GroupRowHolder {
-		TextView groupName, groupId;
+		TextView groupName, groupId, groupCount;
 	}
 }

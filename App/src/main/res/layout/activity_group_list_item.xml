@@ -8,9 +8,16 @@
 	<TextView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="New Text"
+		android:text="Some Group Name"
 		android:textSize="10pt"
 		android:id="@+id/groupName"/>
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentRight="true"
+		android:text="(10)"
+		android:textSize="10pt"
+		android:id="@+id/groupCount"/>
 	<TextView
 		android:layout_width="0pt"
 		android:layout_height="0pt"

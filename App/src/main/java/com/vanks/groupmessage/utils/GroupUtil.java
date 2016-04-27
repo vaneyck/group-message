@@ -13,6 +13,8 @@ import java.util.ArrayList;
  * Created by vaneyck on 2/5/16.
  */
 public class GroupUtil {
+
+	static String TAG = "GroupUtil";
 	/**
 	 * Returns a List of {@link Contact}s
 	 * @param context {@link Context} needed so as to query the content resolver
@@ -46,7 +48,7 @@ public class GroupUtil {
 						phoneNumber = phoneNumber.replace(" ", "").trim();
 						phoneNumber = PhoneNumberUtils.getInternationalPhoneNumber(context, phoneNumber, false);
 						if(!phoneNumberList.contains(phoneNumber)) {
-							Log.d("CreateMessageActivity", "contact " + name + ":" + phoneNumber);
+							Log.i(TAG, "contact " + name + ":" + phoneNumber);
 							contactArrayList.add(new Contact(name, phoneNumber));
 							phoneNumberList.add(phoneNumber);
 						}
@@ -57,5 +59,29 @@ public class GroupUtil {
 			groupCursor.close();
 		}
 		return contactArrayList;
+	}
+
+	/**
+	 * Returns the count of members in group given groupId
+	 * @param context {@link Context} needed so as to query the content resolver
+	 * @param groupId The id of the group as stored in the android database
+	 * @return
+	 */
+	public static Long getGroupCount (Context context, Long groupId) {
+		long groupCount = 0;
+		String[] cProjection = { ContactsContract.Groups._ID, ContactsContract.Groups.SUMMARY_COUNT };
+		Cursor cursor = context.getContentResolver().query(
+				ContactsContract.Groups.CONTENT_SUMMARY_URI,
+				cProjection,
+				ContactsContract.Groups._ID + "= ?",
+				new String[] { String.valueOf(groupId) }, null);
+		if (cursor != null && cursor.moveToFirst()) {
+			do {
+				groupCount = cursor.getLong(cursor.getColumnIndex(ContactsContract.Groups.SUMMARY_COUNT));
+				Log.i(TAG, "group count for " +  groupId + " is " + groupCount);
+			} while (cursor.moveToNext());
+		}
+		cursor.close();
+		return groupCount;
 	}
 }
