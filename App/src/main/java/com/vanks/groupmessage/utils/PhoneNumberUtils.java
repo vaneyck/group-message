@@ -3,6 +3,7 @@ package com.vanks.groupmessage.utils;
 import android.content.Context;
 import android.telephony.TelephonyManager;
 
+import com.google.firebase.crash.FirebaseCrash;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
@@ -21,6 +22,7 @@ public class PhoneNumberUtils {
 		try {
 			phoneNumber = phoneNumberUtil.parse(src, simCountryIso);
 		} catch (NumberParseException e) {
+			FirebaseCrash.report(e);
 			return src;
 		}
 		return formatPhoneNumber(phoneNumber, prettify);

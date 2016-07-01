@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1086830353622",
+    "firebase_url": "https://group-message.firebaseio.com",
+    "project_id": "group-message",
+    "storage_bucket": "group-message.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1086830353622:android:03e587c63e38732e",
+        "android_client_info": {
+          "package_name": "com.vanks.groupmessage"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1086830353622-c4e172lnoimt5nu14m1oj93bcjl93uec.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7jklCJ4ox8bIqoijNRC4AP3WXZ8BPGVs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

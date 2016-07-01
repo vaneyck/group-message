@@ -8,6 +8,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:1.5.0'
+        classpath 'com.google.gms:google-services:3.0.0'
     }
 }
 apply plugin: 'com.android.application'
@@ -27,6 +28,7 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 23
+        applicationId "com.vanks.groupmessage"
     }
     buildTypes {
         release {
@@ -47,6 +49,7 @@ dependencies {
     compile 'com.github.satyan:sugar:1.3'
     compile 'com.android.support:design:23.1.1'
     compile "com.googlecode.libphonenumber:libphonenumber:6.0"
+    compile 'com.google.firebase:firebase-crash:9.2.0'
 }
 
 tasks.withType(Test) {
@@ -54,3 +57,4 @@ tasks.withType(Test) {
     include "**/*Test.class" // whatever Ant pattern matches your test class files
 }
 
+apply plugin: 'com.google.gms.google-services'
