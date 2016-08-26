@@ -7,14 +7,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +32,7 @@ import java.util.ArrayList;
 /**
 * Created by vaneyck on 11/21/15.
 */
-public class CreateMessageActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class CreateMessageActivity extends AppCompatActivity {
 
 	Spinner groupListSpinner;
 	EditText messageToSendEditText;
@@ -45,22 +43,32 @@ public class CreateMessageActivity extends AppCompatActivity implements LoaderMa
 
 	private static final int URL_LOADER = 0;
 	public static final String MESSAGE_SAVED_INTENT = "message.saved.intent";
+	private final String CURRENT_SPINNER_INDEX = "spinner.index";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_message);
-		getSupportLoaderManager().initLoader(URL_LOADER, null, this);
 	}
 
 	@Override
 	public void onResume () {
 		super.onResume();
 		groupArrayList = new ArrayList<>();
+		retrieveGroups();
 		groupListSpinner = (Spinner) findViewById(R.id.groupListSpinner);
+		groupListSpinner.setSelection(retrieveCurrentSelectedGroupIndex());
+
 		messageToSendEditText = (EditText) findViewById(R.id.messageToSendTextView);
 		queueMessageForSendingButton = (Button) findViewById(R.id.submitMessageForSendingButton);
 		queueMessageForSendingButton.setOnClickListener(showConfirmSendDialog);
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+		int index = groupListSpinner.getSelectedItemPosition();
+		storeCurrentSelectedGroupIndex(index);
 	}
 
 	private void initialiseUi () {
@@ -133,25 +141,35 @@ public class CreateMessageActivity extends AppCompatActivity implements LoaderMa
 
 	private IntentFilter dismissProgressDialogIntentFilter = new IntentFilter(MESSAGE_SAVED_INTENT);
 
-	//>LoaderManager.LoaderCallbacks<Cursor> interface methods
-	@Override
-	public Loader<Cursor> onCreateLoader(int loaderId, Bundle bundle) {
-		Uri uri = ContactsContract.Groups.CONTENT_SUMMARY_URI;
-		String[] projection = null;
+	private void storeCurrentSelectedGroupIndex (int index) {
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+		SharedPreferences.Editor editor = sharedPreferences.edit();
+		editor.putInt(CURRENT_SPINNER_INDEX, index);
+		editor.commit();
+	}
+
+	private int retrieveCurrentSelectedGroupIndex () {
+		return PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getInt(CURRENT_SPINNER_INDEX, 0);
+	}
+
+	/**
+	 * retrieve the groups and store them in $groupArrayList
+	 */
+	private void retrieveGroups () {
 		String selection = ContactsContract.Groups.ACCOUNT_TYPE + " NOT NULL AND " +
 				ContactsContract.Groups.ACCOUNT_NAME + " NOT NULL AND " + ContactsContract.Groups.DELETED + "=0";
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 			selection += " AND " + ContactsContract.Groups.AUTO_ADD + "=0 AND " + ContactsContract.Groups.FAVORITES + "=0";
 		}
+		Cursor cursor = getBaseContext().getContentResolver().query(
+				ContactsContract.Groups.CONTENT_SUMMARY_URI, // data Uri
+				null,
+				selection, // desired fields
+				null, // query parameters
+				ContactsContract.Groups.TITLE + " ASC" // sorting
+		);
 
-		String[] selectionArgs = null;
-		String sortOrder = ContactsContract.Groups.TITLE + " ASC";
-		Loader<Cursor> loader = new CursorLoader(getApplicationContext(), uri, projection, selection, selectionArgs, sortOrder);
-		return loader;
-	}
-
-	@Override
-	public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
+		// retrieve the groups
 		if(cursor == null || cursor.getCount() == 0) { return; }
 		cursor.moveToFirst();
 		do {
@@ -162,7 +180,4 @@ public class CreateMessageActivity extends AppCompatActivity implements LoaderMa
 		} while(cursor.moveToNext());
 		cursor.close();
 	}
-
-	@Override
-	public void onLoaderReset(Loader<Cursor> cursorLoader) {}
 }
