@@ -37,5 +37,9 @@
             android:entries="@array/pref_dispatch_pickup_size_entries_labels"
             android:entryValues="@array/pref_dispatch_pickup_size_entries_values"
             android:defaultValue="10" />
+        <Preference
+            android:key="pref_about_key"
+            android:summary="@string/current_version"
+            android:title="@string/version_label" />
     </PreferenceCategory>
 </PreferenceScreen>

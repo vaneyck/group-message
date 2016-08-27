@@ -40,5 +40,7 @@
     <string name="saving_message_label">Saving message</string>
     <string name="mobile_numbers_only_title">Mobile only</string>
     <string name="mobile_numbers_only_title_summary">Send message to Mobile numbers only.</string>
+    <string name="version_label">Version</string>
+    <string name="current_version">12.0</string>
 
 </resources>
