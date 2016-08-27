@@ -9,6 +9,7 @@
           app:showAsAction="never" />
       <item android:id="@+id/action_delete_message"
             android:title="@string/action_delete_message"
+            android:visible="false"
             android:orderInCategory="100"
             app:showAsAction="never" />
 </menu>
