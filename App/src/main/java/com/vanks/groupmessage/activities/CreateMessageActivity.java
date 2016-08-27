@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -41,7 +42,6 @@ public class CreateMessageActivity extends AppCompatActivity {
 	GroupArrayAdapter groupArrayAdapter;
 	Dialog showSavingProgressDialog;
 
-	private static final int URL_LOADER = 0;
 	public static final String MESSAGE_SAVED_INTENT = "message.saved.intent";
 	private final String CURRENT_SPINNER_INDEX = "spinner.index";
 
@@ -55,13 +55,12 @@ public class CreateMessageActivity extends AppCompatActivity {
 	public void onResume () {
 		super.onResume();
 		groupArrayList = new ArrayList<>();
-		retrieveGroups();
-		groupListSpinner = (Spinner) findViewById(R.id.groupListSpinner);
-		groupListSpinner.setSelection(retrieveCurrentSelectedGroupIndex());
-
+		groupListSpinner = (Spinner) findViewById(R.id.groupListSpinner);;
 		messageToSendEditText = (EditText) findViewById(R.id.messageToSendTextView);
 		queueMessageForSendingButton = (Button) findViewById(R.id.submitMessageForSendingButton);
 		queueMessageForSendingButton.setOnClickListener(showConfirmSendDialog);
+		retrieveGroups();
+		initialiseUi();
 	}
 
 	@Override
@@ -75,6 +74,7 @@ public class CreateMessageActivity extends AppCompatActivity {
 		groupArrayAdapter = new GroupArrayAdapter(this, R.layout.activity_group_list_item, groupArrayList);
 		groupListSpinner.setAdapter(groupArrayAdapter);
 		groupArrayAdapter.notifyDataSetChanged();
+		groupListSpinner.setSelection(retrieveCurrentSelectedGroupIndex());
 	}
 
 	View.OnClickListener showConfirmSendDialog = new View.OnClickListener() {
@@ -176,7 +176,6 @@ public class CreateMessageActivity extends AppCompatActivity {
 			String groupName = cursor.getString(cursor.getColumnIndex(ContactsContract.Groups.TITLE));
 			Long groupId = cursor.getLong(cursor.getColumnIndex(ContactsContract.Groups._ID));
 			groupArrayList.add(new Group(groupName, groupId, GroupUtil.getGroupCount(this, groupId)));
-			initialiseUi();
 		} while(cursor.moveToNext());
 		cursor.close();
 	}
