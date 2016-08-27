@@ -46,7 +46,9 @@ public class DispatchUtil {
 		for (int x = 0; x <= multipartMessageList.size(); x++) {
 			int uniqueBroadcastId = (int) (dispatchId * new Date().getTime());
 			sentPendingIntentsList.add(PendingIntent.getBroadcast(context, uniqueBroadcastId, sentIntent, 0));
-			deliveredPendingIntentsList.add(PendingIntent.getBroadcast(context, uniqueBroadcastId, deliveredIntent, 0));
+			if (PreferenceUtil.receiveDeliveryReports(context)) {
+				deliveredPendingIntentsList.add(PendingIntent.getBroadcast(context, uniqueBroadcastId, deliveredIntent, 0));
+			}
 		}
 		smsManager.sendMultipartTextMessage(destinationNumber, null, multipartMessageList, sentPendingIntentsList, deliveredPendingIntentsList);
 	}

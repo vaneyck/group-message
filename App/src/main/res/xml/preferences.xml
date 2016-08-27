@@ -13,6 +13,11 @@
             android:title="@string/mobile_numbers_only_title"
             android:summary="@string/mobile_numbers_only_title_summary"
             android:defaultValue="false" />
+        <CheckBoxPreference
+            android:key="receive.delivery.reports"
+            android:title="@string/delivery_reports_title"
+            android:summary="@string/delivery_reports_title_summary"
+            android:defaultValue="true" />
         <ListPreference
             android:key="dispatch.delay"
             android:summary="@string/pref_dispatch_delay_summary"

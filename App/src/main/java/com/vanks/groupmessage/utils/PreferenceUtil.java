@@ -15,6 +15,7 @@ public class PreferenceUtil {
 	public static final String DISPATCH_PICKUP_SIZE = "dispatch.pickup.size";
 	public static final String APP_ON = "app.on";
 	public static final String MOBILE_ONLY = "mobile.numbers.only";
+	public static final String DELIVERY_REPORTS = "receive.delivery.reports";
 	public static final String NEXT_DISPATCH_PICKUP_TIMESTAMP = "next.dispatch.pickup.timestamp";
 
 	/**
@@ -44,6 +45,10 @@ public class PreferenceUtil {
 
 	public static boolean sendToMobileOnly (Context context) {
 		return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(MOBILE_ONLY, false);
+	}
+
+	public static boolean receiveDeliveryReports (Context context) {
+		return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(DELIVERY_REPORTS, true);
 	}
 
 	public static Date getNextDispatchRunTime (Context context) {

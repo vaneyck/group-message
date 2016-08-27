@@ -129,6 +129,10 @@ public class ViewMessageActivity extends AppCompatActivity {
 		dialog.show();
 	}
 
+	/**
+	 * TODO Fix ASAP
+	 * Deletes message but doesn't delete Dispatches
+	 */
 	private void deleteMessage() {
 		String messageIdAsString = message.toString();
 		message.delete();
