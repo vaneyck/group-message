@@ -14,6 +14,7 @@ public class PreferenceUtil {
 	public static final String BATCH_DISPATCH_DELAY = "batch.dispatch.delay";
 	public static final String DISPATCH_PICKUP_SIZE = "dispatch.pickup.size";
 	public static final String APP_ON = "app.on";
+	public static final String MOBILE_ONLY = "mobile.numbers.only";
 	public static final String NEXT_DISPATCH_PICKUP_TIMESTAMP = "next.dispatch.pickup.timestamp";
 
 	/**
@@ -41,10 +42,8 @@ public class PreferenceUtil {
 		return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(APP_ON, true);
 	}
 
-	public static void setNextDispatchRunTime (Context context, Date date) {
-		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-		SharedPreferences.Editor editor = sharedPreferences.edit();
-		editor.putLong(NEXT_DISPATCH_PICKUP_TIMESTAMP, date.getTime());
+	public static boolean sendToMobileOnly (Context context) {
+		return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(MOBILE_ONLY, false);
 	}
 
 	public static Date getNextDispatchRunTime (Context context) {

@@ -38,5 +38,7 @@
     <string name="pending_label">PENDING</string>
     <string name="queued_label">QUEUED</string>
     <string name="saving_message_label">Saving message</string>
+    <string name="mobile_numbers_only_title">Mobile only</string>
+    <string name="mobile_numbers_only_title_summary">Send message to Mobile numbers only.</string>
 
 </resources>

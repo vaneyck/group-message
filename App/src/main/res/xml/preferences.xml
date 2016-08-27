@@ -8,6 +8,11 @@
             android:title="@string/app_on_title"
             android:summary="@string/app_on_summary"
             android:defaultValue="true" />
+        <CheckBoxPreference
+            android:key="mobile.numbers.only"
+            android:title="@string/mobile_numbers_only_title"
+            android:summary="@string/mobile_numbers_only_title_summary"
+            android:defaultValue="false" />
         <ListPreference
             android:key="dispatch.delay"
             android:summary="@string/pref_dispatch_delay_summary"

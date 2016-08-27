@@ -35,16 +35,32 @@ public class GroupUtil {
 				new String[] { String.valueOf(groupId) }, null);
 		if (groupCursor != null && groupCursor.moveToFirst()) {
 			do {
-				int nameCoumnIndex = groupCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
-				String name = groupCursor.getString(nameCoumnIndex);
+				int nameColumnIndex = groupCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
+				String name = groupCursor.getString(nameColumnIndex);
 				long contactId = groupCursor.getLong(groupCursor.getColumnIndex(ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID));
-				Cursor numberCursor = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-						new String[] { ContactsContract.CommonDataKinds.Phone.NUMBER }, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=" + contactId, null, null);
+				Cursor numberCursor = context.getContentResolver().query(
+						ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+						new String[] {
+								ContactsContract.CommonDataKinds.Phone.NUMBER,
+								ContactsContract.CommonDataKinds.Phone.TYPE
+						},
+						ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=" + contactId,
+						null,null);
 				if (numberCursor.moveToFirst()) {
 					int numberColumnIndex = numberCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+					int numberTypeIndex = numberCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.TYPE);
 					do
 					{
 						String phoneNumber = numberCursor.getString(numberColumnIndex);
+						int numberType = numberCursor.getInt(numberTypeIndex);
+
+						// skip phone number of is not a mobile and only mobiles are allowed
+						if(numberType != ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE) {
+							if (PreferenceUtil.sendToMobileOnly(context)) {
+								Log.i("GroupUtil", "jumping phone number since it is not a mobile");
+								break;
+							}
+						}
 						phoneNumber = phoneNumber.replace(" ", "").trim();
 						phoneNumber = PhoneNumberUtils.getInternationalPhoneNumber(context, phoneNumber, false);
 						if(!phoneNumberList.contains(phoneNumber)) {
