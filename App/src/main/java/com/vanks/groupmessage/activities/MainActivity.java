@@ -138,13 +138,23 @@ public class MainActivity extends AppCompatActivity {
     private IntentFilter refreshUiIntentFilter = new IntentFilter(REFRESH_UI_INTENT_FILTER);
 
     private void requestForNeededAppPermissions () {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)
-            != PackageManager.PERMISSION_GRANTED) {
+        if (atLeastOnePermissionNotGranted()) {
             ActivityCompat.requestPermissions(this, new String[]{
                             Manifest.permission.READ_CONTACTS,
-                            Manifest.permission.SEND_SMS
+                            Manifest.permission.SEND_SMS,
+                            Manifest.permission.READ_PHONE_STATE
                     },
                     REQUEST_PERMISSIONS_ID);
         }
+    }
+
+    private boolean atLeastOnePermissionNotGranted () {
+        return  permissionGranted(Manifest.permission.READ_CONTACTS)&&
+                permissionGranted(Manifest.permission.SEND_SMS) &&
+                permissionGranted(Manifest.permission.READ_PHONE_STATE);
+    }
+
+    private boolean permissionGranted (String permission) {
+        return ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED;
     }
 }
