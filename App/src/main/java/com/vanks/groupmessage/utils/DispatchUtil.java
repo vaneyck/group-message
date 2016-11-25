@@ -21,6 +21,7 @@ import java.util.List;
 public class DispatchUtil {
 	public static final String SENT_INTENT = "com.vanks.dispatch.SMS_SENT";
 	private static final String DELIVERED_INTENT = "com.vanks.dispatch.SMS_DELIVERED";
+	private static final String TAG = DispatchUtil.class.toString();
 
 	public static void sendDispatch (Context context, Dispatch dispatch) {
 		if(!PreferenceUtil.isAppOn(context)) {
@@ -50,7 +51,11 @@ public class DispatchUtil {
 				deliveredPendingIntentsList.add(PendingIntent.getBroadcast(context, uniqueBroadcastId, deliveredIntent, 0));
 			}
 		}
-		smsManager.sendMultipartTextMessage(destinationNumber, null, multipartMessageList, sentPendingIntentsList, deliveredPendingIntentsList);
+		if (multipartMessageList.size() >= 1 && multipartMessageList != null) {
+			smsManager.sendMultipartTextMessage(destinationNumber, null, multipartMessageList, sentPendingIntentsList, deliveredPendingIntentsList);
+		} else {
+			Log.w(TAG, "Tried to send an empty message");
+		}
 	}
 
 	public static List<Dispatch> getDispatchesToSend(Context context) {
