@@ -141,8 +141,7 @@ public class MainActivity extends AppCompatActivity {
         if (atLeastOnePermissionNotGranted()) {
             ActivityCompat.requestPermissions(this, new String[]{
                             Manifest.permission.READ_CONTACTS,
-                            Manifest.permission.SEND_SMS,
-                            Manifest.permission.READ_PHONE_STATE
+                            Manifest.permission.SEND_SMS
                     },
                     REQUEST_PERMISSIONS_ID);
         }
@@ -150,8 +149,7 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean atLeastOnePermissionNotGranted () {
         return  permissionGranted(Manifest.permission.READ_CONTACTS)&&
-                permissionGranted(Manifest.permission.SEND_SMS) &&
-                permissionGranted(Manifest.permission.READ_PHONE_STATE);
+                permissionGranted(Manifest.permission.SEND_SMS);
     }
 
     private boolean permissionGranted (String permission) {
