@@ -30,3 +30,9 @@ out/
 *.out
 .gradle/
 App/build/
+build/
+
+# iml files
+*.iml
+
+
