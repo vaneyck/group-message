@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.telephony.SmsManager;
 import android.util.Log;
 
-import com.google.firebase.crash.FirebaseCrash;
+import com.crashlytics.android.Crashlytics;
 import com.orm.query.Condition;
 import com.orm.query.Select;
 import com.vanks.groupmessage.enums.DispatchStatus;
@@ -58,8 +58,8 @@ public class DispatchUtil {
 						sentPendingIntentsList, deliveredPendingIntentsList);
 			} catch (Exception e) {
 				updateDispatch(dispatch, DispatchStatus.FAILED);
-				FirebaseCrash.log("Failed to send Dispatch ID : " + dispatchId);
-				FirebaseCrash.report(e);
+				Crashlytics.log("Failed to send Dispatch ID : " + dispatchId);
+				Crashlytics.logException(e);
 			}
 		} else {
 			Log.w(TAG, "Tried to send an empty message");

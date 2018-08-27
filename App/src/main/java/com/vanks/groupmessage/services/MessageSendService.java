@@ -3,7 +3,7 @@ package com.vanks.groupmessage.services;
 import android.app.IntentService;
 import android.content.Intent;
 
-import com.google.firebase.crash.FirebaseCrash;
+import com.crashlytics.android.Crashlytics;
 import com.vanks.groupmessage.enums.DispatchStatus;
 import com.vanks.groupmessage.models.persisted.Dispatch;
 import com.vanks.groupmessage.utils.DispatchUtil;
@@ -41,7 +41,7 @@ public class MessageSendService extends IntentService {
 		try {
 			Thread.sleep(delay);
 		} catch (InterruptedException e) {
-			FirebaseCrash.report(e);
+			Crashlytics.logException(e);
 		}
 	}
 
