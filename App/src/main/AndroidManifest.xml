@@ -4,10 +4,6 @@
           android:versionCode="14"
           android:versionName="@string/current_version">
 
-    <uses-sdk
-        android:minSdkVersion="9"
-        android:targetSdkVersion="19"/>
-
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <uses-permission android:name="android.permission.SEND_SMS"/>
 
