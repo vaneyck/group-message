@@ -34,7 +34,7 @@ android {
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 23
+        targetSdkVersion 26
         applicationId "com.vanks.groupmessage"
     }
     buildTypes {
