@@ -44,5 +44,7 @@
     <string name="current_version">16.0</string>
     <string name="delivery_reports_title">Delivery Reports</string>
     <string name="delivery_reports_title_summary">Use delivery reports to track messages. Disabling this also disables delivery stats.</string>
+    <string name="request_permissions_info">Group Message needs to access your Contacts and SMS inorder to function properly.</string>
+    <string name="grant_permission_label">Grant Permissions</string>
 
 </resources>

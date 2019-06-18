@@ -175,7 +175,10 @@ public class CreateMessageActivity extends AppCompatActivity {
 		do {
 			String groupName = cursor.getString(cursor.getColumnIndex(ContactsContract.Groups.TITLE));
 			Long groupId = cursor.getLong(cursor.getColumnIndex(ContactsContract.Groups._ID));
-			groupArrayList.add(new Group(groupName, groupId, GroupUtil.getGroupCount(this, groupId)));
+			Long groupCount = GroupUtil.getGroupCount(this, groupId);
+			if (groupCount > 0) {
+				groupArrayList.add(new Group(groupName, groupId, groupCount));
+			}
 		} while(cursor.moveToNext());
 		cursor.close();
 	}
