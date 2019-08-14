@@ -1,16 +1,12 @@
 package com.vanks.groupmessage.activities;
 
-import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,7 +27,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
-    static int REQUEST_PERMISSIONS_ID = 1;
     ListView messageListView;
     LinearLayout ctaGroupMessage;
     TextView nextDispatchPickupTimeTextView;
@@ -57,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         initialiseUi();
-        requestForNeededAppPermissions();
         registerReceiver(refreshUiBroadcastReceiver, refreshUiIntentFilter);
     }
 
@@ -136,23 +130,4 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private IntentFilter refreshUiIntentFilter = new IntentFilter(REFRESH_UI_INTENT_FILTER);
-
-    private void requestForNeededAppPermissions () {
-        if (atLeastOnePermissionNotGranted()) {
-            ActivityCompat.requestPermissions(this, new String[]{
-                            Manifest.permission.READ_CONTACTS,
-                            Manifest.permission.SEND_SMS
-                    },
-                    REQUEST_PERMISSIONS_ID);
-        }
-    }
-
-    private boolean atLeastOnePermissionNotGranted () {
-        return  permissionGranted(Manifest.permission.READ_CONTACTS)&&
-                permissionGranted(Manifest.permission.SEND_SMS);
-    }
-
-    private boolean permissionGranted (String permission) {
-        return ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED;
-    }
 }

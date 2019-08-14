@@ -35,13 +35,22 @@ public class DispatchUtil {
 		String destinationNumber = dispatch.getPhoneNumber();
 		long dispatchId = dispatch.getId();
 
-		SmsManager smsManager = SmsManager.getDefault();
+		SmsManager smsManager = null;
+		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP_MR1) {
+			Log.i("DispatchUtil", "Got default sms subscription " + SmsManager.getDefaultSmsSubscriptionId());
+			smsManager = SmsManager.getSmsManagerForSubscriptionId(SmsManager.getDefaultSmsSubscriptionId());
+		} else {
+			Log.i("DispatchUtil", "Using default sms manager");
+			smsManager = SmsManager.getDefault();
+		}
 		ArrayList<String> multipartMessageList = smsManager.divideMessage(text);
 		ArrayList<PendingIntent> sentPendingIntentsList = new ArrayList<PendingIntent>();
 		ArrayList<PendingIntent> deliveredPendingIntentsList = new ArrayList<PendingIntent>();
 
 		Intent sentIntent = new Intent(SENT_INTENT);
+		sentIntent.setPackage("com.vanks.groupmessage");
 		Intent deliveredIntent = new Intent(DELIVERED_INTENT);
+		deliveredIntent.setPackage("com.vanks.groupmessage");
 		sentIntent.putExtra("dispatchId", dispatchId);
 		deliveredIntent.putExtra("dispatchId", dispatchId);
 

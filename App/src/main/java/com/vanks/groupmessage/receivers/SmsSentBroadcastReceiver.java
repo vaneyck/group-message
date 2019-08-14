@@ -8,6 +8,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.telephony.SmsManager;
+import android.util.Log;
 
 import com.vanks.groupmessage.enums.DispatchStatus;
 import com.vanks.groupmessage.utils.DispatchUtil;
@@ -19,6 +20,7 @@ public class SmsSentBroadcastReceiver extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		long dispatchId = intent.getExtras().getLong("dispatchId");
+		Log.i("SmsSent", "dispatch sent : " + dispatchId);
 		switch (getResultCode()) {
 			case Activity.RESULT_OK:
 				DispatchUtil.updateDispatch(dispatchId, DispatchStatus.SENT);
