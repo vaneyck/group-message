@@ -1,6 +1,5 @@
 package com.vanks.groupmessage.activities;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -13,7 +12,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +19,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.vanks.groupmessage.R;
 import com.vanks.groupmessage.arrayadapters.create.GroupArrayAdapter;
 import com.vanks.groupmessage.models.unsaved.Group;
@@ -79,7 +81,7 @@ public class CreateMessageActivity extends AppCompatActivity {
 
 	View.OnClickListener showConfirmSendDialog = new View.OnClickListener() {
 		public void onClick(View v) {
-			AlertDialog.Builder builder = new AlertDialog.Builder(CreateMessageActivity.this);
+			MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(CreateMessageActivity.this);
 			builder.setMessage(R.string.confirm_send_message)
 					.setTitle(R.string.confirm_send_message_title);
 			builder.setPositiveButton(R.string.send_label, new DialogInterface.OnClickListener() {
@@ -98,11 +100,11 @@ public class CreateMessageActivity extends AppCompatActivity {
 	};
 
 	private Dialog showSendingProgressDialog () {
-		AlertDialog.Builder builder = new AlertDialog.Builder(CreateMessageActivity.this);
+		MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(CreateMessageActivity.this);
 		LayoutInflater inflater = getLayoutInflater();
 		builder.setView(inflater.inflate(R.layout.dialog_save_message_progress, null));
 		builder.setTitle(R.string.saving_message_label);
-		AlertDialog dialog = builder.create();
+		androidx.appcompat.app.AlertDialog dialog = builder.create();
 		dialog.show();
 		dialog.setCancelable(false);
 		dialog.setCanceledOnTouchOutside(false);

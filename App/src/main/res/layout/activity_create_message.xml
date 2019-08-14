@@ -5,24 +5,26 @@
 			  android:layout_width="match_parent"
 			  android:layout_height="match_parent">
 
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:textAppearance="?android:attr/textAppearanceLarge"
-		android:text="@string/select_group_label"
-		android:id="@+id/textView"/>
 	<Spinner
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:id="@+id/groupListSpinner"/>
-	<EditText
+	<com.google.android.material.textfield.TextInputLayout
 		android:layout_width="match_parent"
-		android:layout_height="100pt"
-		android:inputType="textMultiLine"
-		android:ems="50"
-		android:gravity="top"
-		android:id="@+id/messageToSendTextView" android:layout_gravity="center_horizontal"/>
-	<Button
+		android:layout_height="wrap_content"
+		android:hint="@string/hint_text">
+
+		<com.google.android.material.textfield.TextInputEditText
+			android:layout_width="match_parent"
+			android:layout_height="100pt"
+			android:inputType="textMultiLine"
+			android:ems="50"
+			android:gravity="top"
+			android:id="@+id/messageToSendTextView" android:layout_gravity="center_horizontal"/>
+
+	</com.google.android.material.textfield.TextInputLayout>
+
+	<com.google.android.material.button.MaterialButton
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:text="@string/queue_message_label"

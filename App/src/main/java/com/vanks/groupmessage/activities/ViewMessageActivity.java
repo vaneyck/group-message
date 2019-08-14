@@ -1,10 +1,8 @@
 package com.vanks.groupmessage.activities;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,6 +10,10 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.vanks.groupmessage.R;
 import com.vanks.groupmessage.arrayadapters.view.DispatchArrayAdapter;
 import com.vanks.groupmessage.enums.DispatchStatus;
@@ -103,7 +105,7 @@ public class ViewMessageActivity extends AppCompatActivity {
 	private View.OnClickListener showFullMessageInDialogListener = new View.OnClickListener () {
 		@Override
 		public void onClick(View v) {
-			AlertDialog.Builder builder = new AlertDialog.Builder(ViewMessageActivity.this);
+			MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(ViewMessageActivity.this);
 			builder.setMessage(message.getText())
 					.setTitle(R.string.message_label);
 			AlertDialog dialog = builder.create();

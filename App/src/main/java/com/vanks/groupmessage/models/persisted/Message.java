@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by vaneyck on 11/21/15.
  */
-public class Message extends SugarRecord<Message> {
+public class Message extends SugarRecord {
 	String text;
 	Long groupId;
 	String groupName;

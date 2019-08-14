@@ -21,7 +21,7 @@
 	<TableLayout
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:background="#c2c2c2"
+		android:background="@color/colorAccent"
 		android:padding="3pt"
 		android:layout_marginBottom="5pt">
 		<TableRow
@@ -142,5 +142,7 @@
 	<ListView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
+		android:divider="@null"
+		android:dividerHeight="0dp"
 		android:id="@+id/dispatchListView"/>
 </LinearLayout>

@@ -5,7 +5,6 @@
     <string name="action_settings">Settings</string>
 	<string name="title_activity_view_message">View Message</string>
     <string name="activity_create_message_label">Send Group Message</string>
-    <string name="select_group_label">Select group to send message to</string>
     <string name="queue_message_label">Queue Message</string>
     <string name="confirm_send_message">Are you sure you want to send this message?</string>
     <string name="confirm_send_message_title">Confirm Sending</string>
@@ -18,7 +17,7 @@
     <string name="pref_batch_dispatch_delay_summary">Duration to wait before sending every batch of SMS</string>
     <string name="pref_dispatch_pickup_size_title">Batch SMS Size</string>
     <string name="pref_dispatch_pickup_size_summary">Batch SMS size to attempt sending after every Batch SMS Delay</string>
-    <string name="cta_group_messase">No group messages have been sent</string>
+    <string name="cta_group_messase">Tap on the button on the bottom right to send a Group Message (SMS)</string>
     <string name="activity_view_message_label">View Group Message</string>
     <string name="action_queue_failed">Queue Failed Messages</string>
     <string name="action_delete_message">Delete Message</string>
@@ -46,5 +45,6 @@
     <string name="delivery_reports_title_summary">Use delivery reports to track messages. Disabling this also disables delivery stats.</string>
     <string name="request_permissions_info">Group Message needs to access your Contacts and SMS inorder to function properly.</string>
     <string name="grant_permission_label">Grant Permissions</string>
+    <string name="hint_text">Message to send to the Group</string>
 
 </resources>

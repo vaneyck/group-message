@@ -6,7 +6,7 @@ import com.vanks.groupmessage.enums.DispatchStatus;
 /**
  * Created by vaneyck on 11/21/15.
  */
-public class Dispatch extends SugarRecord<Dispatch> {
+public class Dispatch extends SugarRecord {
 	String phoneNumber;
 	String name;
 	DispatchStatus status;

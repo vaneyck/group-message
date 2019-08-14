@@ -1,40 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:padding="5pt"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<com.google.android.material.card.MaterialCardView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+		style="@style/Widget.MaterialComponents.CardView"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:padding="5dp"
+		android:layout_marginLeft="@dimen/mtrl_card_spacing"
+		android:layout_marginTop="@dimen/mtrl_card_spacing"
+		android:layout_marginRight="@dimen/mtrl_card_spacing">
 
-    <RelativeLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
+	<LinearLayout
+		android:orientation="vertical"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:padding="10dp">
+		<RelativeLayout
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignParentLeft="true"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:text="Large Text"
+				android:id="@+id/groupNameTextView"/>
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignParentRight="true"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:text="5/10"
+				android:id="@+id/sentMessagesProportionTextView"/>
+		</RelativeLayout>
+		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_alignParentLeft="true"
-			android:textAppearance="?android:attr/textAppearanceLarge"
-			android:text="Large Text"
-			android:id="@+id/groupNameTextView"/>
-        <TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_alignParentRight="true"
-			android:textAppearance="?android:attr/textAppearanceMedium"
-			android:text="5/10"
-			android:id="@+id/sentMessagesProportionTextView"/>
-    </RelativeLayout>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Small Text"
-        android:id="@+id/messageSummaryTextView"/>
-    <TextView
-        android:layout_width="0pt"
-        android:layout_height="0pt"
-        android:visibility="invisible"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Small Text"
-        android:id="@+id/messageIdTextView"/>
-</LinearLayout>
+			android:textAppearance="?android:attr/textAppearanceSmall"
+			android:text="Small Text"
+			android:id="@+id/messageSummaryTextView"/>
+		<TextView
+			android:layout_width="0pt"
+			android:layout_height="0pt"
+			android:visibility="invisible"
+			android:textAppearance="?android:attr/textAppearanceSmall"
+			android:text="Small Text"
+			android:id="@+id/messageIdTextView"/>
+	</LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:fitsSystemWindows="true"
-	tools:context="com.vanks.groupmessage.activities.ViewMessage">
+	tools:context="com.vanks.groupmessage.activities.ViewMessageActivity">
 
-	<android.support.design.widget.AppBarLayout
+	<com.google.android.material.appbar.AppBarLayout
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
 		android:theme="@style/AppTheme.AppBarOverlay">
 
-	</android.support.design.widget.AppBarLayout>
+	</com.google.android.material.appbar.AppBarLayout>
 
 	<RelativeLayout
 		android:layout_width="match_parent"
@@ -26,33 +26,52 @@
 		tools:showIn="@layout/activity_view_message"
 		tools:context="com.vanks.groupmessage.activities.ViewMessage">
 
-		<LinearLayout
-			android:orientation="vertical"
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content">
 			<LinearLayout
-				android:background="#c2c2c2"
-				android:orientation="vertical"
-				android:padding="3pt"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content">
-				<TextView
-					android:layout_width="fill_parent"
-					android:layout_height="wrap_content"
-					android:text="@string/next_dispatch_pickup_time_label"/>
-				<TextView
-					android:textStyle="bold"
-					android:layout_width="fill_parent"
-					android:layout_height="wrap_content"
-					android:padding="3pt"
-					android:text="12th December 2015, 12:12PM"
-					android:id="@+id/next_dispatch_pickup_time"/>
-			</LinearLayout>
-			<ListView
 				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
-				android:id="@+id/messageListView"/>
-		</LinearLayout>
+				android:orientation="vertical">
+
+				<com.google.android.material.card.MaterialCardView
+					style="@style/Widget.MaterialComponents.CardView"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="@dimen/mtrl_card_spacing"
+					android:layout_marginTop="@dimen/mtrl_card_spacing"
+					android:layout_marginRight="@dimen/mtrl_card_spacing"
+					app:cardCornerRadius="4dp">
+				<LinearLayout
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+					android:background="@color/colorAccent"
+					android:orientation="vertical"
+					android:padding="3pt">
+
+					<com.google.android.material.textview.MaterialTextView
+						android:layout_width="fill_parent"
+						android:layout_height="wrap_content"
+						android:padding="1pt"
+						android:text="@string/next_dispatch_pickup_time_label" />
+
+					<com.google.android.material.textview.MaterialTextView
+						android:id="@+id/next_dispatch_pickup_time"
+						android:layout_width="fill_parent"
+						android:layout_height="wrap_content"
+						android:padding="1pt"
+						android:text="12th December 2015, 12:12PM"
+						android:textStyle="bold" />
+				</LinearLayout>
+				</com.google.android.material.card.MaterialCardView>
+
+				<ListView
+					android:id="@+id/messageListView"
+					android:layout_marginTop="10dp"
+					android:divider="@null"
+					android:dividerHeight="0dp"
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content" />
+			</LinearLayout>
+
+
 		<LinearLayout
 			android:layout_width="fill_parent"
 			android:layout_height="fill_parent"
@@ -60,27 +79,28 @@
 			android:visibility="gone"
 			android:layout_marginTop="50pt"
 			android:id="@+id/cta_group_message">
+			<com.google.android.material.textview.MaterialTextView
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:gravity="center_horizontal"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:text="@string/cta_group_messase"/>
 			<ImageView
 				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
-				android:gravity="center"
-				android:src="@android:drawable/ic_dialog_email"/>
-			<TextView
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:gravity="center"
-				android:textAppearance="?android:attr/textAppearanceLarge"
-				android:text="@string/cta_group_messase"/>
+				android:gravity="top"
+				android:src="@drawable/undraw_updates"/>
 		</LinearLayout>
 
 	</RelativeLayout>
 
-	<android.support.design.widget.FloatingActionButton
+	<com.google.android.material.floatingactionbutton.FloatingActionButton
 		android:id="@+id/fab"
+		style="@style/Widget.MaterialComponents.FloatingActionButton"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_gravity="bottom|end"
 		android:layout_margin="@dimen/fab_margin"
 		android:src="@android:drawable/ic_dialog_email"/>
 
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

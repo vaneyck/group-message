@@ -1,5 +1,5 @@
 include ':App'
-include ':sugar'
+//include ':sugar'
 
 def getLocalProperty(prop) {
     Properties properties = new Properties()
@@ -7,4 +7,4 @@ def getLocalProperty(prop) {
     return properties.getProperty(prop, '')
 }
 
-project(':sugar').projectDir = new File(getLocalProperty('sugar.dir'))
+//project(':sugar').projectDir = new File(getLocalProperty('sugar.dir'))
