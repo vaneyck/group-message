@@ -40,7 +40,7 @@
     <string name="mobile_numbers_only_title">Mobile only</string>
     <string name="mobile_numbers_only_title_summary">Send message to mobile numbers only</string>
     <string name="version_label">Version</string>
-    <string name="current_version">18.0</string>
+    <string name="current_version">19.0</string>
     <string name="delivery_reports_title">Delivery Reports</string>
     <string name="delivery_reports_title_summary">Use delivery reports to track messages. Disabling this also disables delivery stats.</string>
     <string name="request_permissions_info">Group Message needs to access your Contacts and SMS inorder to do its basic functions. Contact access allows Group Message to read contacts and groups. SMS access allows Group Message to send the actual text messages (SMS). Please grant Group Message the required permissions.</string>
