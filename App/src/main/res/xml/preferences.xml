@@ -42,6 +42,16 @@
             android:entries="@array/pref_dispatch_pickup_size_entries_labels"
             android:entryValues="@array/pref_dispatch_pickup_size_entries_values"
             android:defaultValue="10" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/pref_app_info"
+        android:key="pref_key_app_info">
+        <Preference
+            android:key="pref_privacy"
+            android:title="@string/privacy_policy_label"
+            android:summary="@string/privacy_policy_summary" >
+            <intent android:action="android.intent.action.VIEW" android:data="https://group-message.firebaseapp.com/privacy.html"/>
+        </Preference>
         <Preference
             android:key="pref_about_key"
             android:summary="@string/current_version"
