@@ -35,4 +35,5 @@ build/
 # iml files
 *.iml
 
+App/defaultFlavor/release/App.aab
 
